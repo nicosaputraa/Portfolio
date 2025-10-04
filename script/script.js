@@ -10,54 +10,38 @@ window.addEventListener("scroll", () => {
 });
 
 // ============================
-// Kontrol Audio Background
+// Kontrol Audio Background (tanpa autoplay)
 // ============================
 document.addEventListener("DOMContentLoaded", () => {
   const audio = document.getElementById("bg-audio");
   const audioBtn = document.getElementById("audio-btn");
   if (!audio || !audioBtn) return;
 
-  // Volume awal
+  // Volume awal dan status awal (mute)
   audio.volume = 0.2;
+  audio.muted = true;
+  audioBtn.textContent = "🔇";
 
-  // Ambil status mute terakhir (localStorage)
-  let storedMuted = localStorage.getItem("audioMuted");
-  if (storedMuted === null) storedMuted = "true";
-  audio.muted = storedMuted === "true";
-
-  // Set tampilan tombol awal (kalau muted → 🔇)
-  audioBtn.textContent = audio.muted ? "🔇" : "🔊";
-
-  // Fungsi toggle
-  const toggleAudio = () => {
-    // Coba play kalau belum mulai
-    if (audio.paused) {
-      audio.play().catch(() => {
-        console.warn("Autoplay diblokir, butuh interaksi user.");
-      });
-    }
-    audio.muted = !audio.muted;
-    localStorage.setItem("audioMuted", audio.muted);
+  // Cek kalau pernah disimpan di localStorage
+  const storedMuted = localStorage.getItem("audioMuted");
+  if (storedMuted !== null) {
+    audio.muted = storedMuted === "true";
     audioBtn.textContent = audio.muted ? "🔇" : "🔊";
-  };
-
-  audioBtn.addEventListener("click", toggleAudio);
-
-  // Pastikan audio bisa jalan setelah interaksi pertama
-  let hasInteracted = false;
-  function enableAudioOnFirstInteraction() {
-    if (hasInteracted) return;
-    hasInteracted = true;
-
-    audio.play().then(() => {
-      console.log("Audio dimulai setelah interaksi.");
-    }).catch((err) => {
-      console.warn("Autoplay masih diblokir:", err);
-    });
   }
 
-  document.addEventListener("click", enableAudioOnFirstInteraction);
-  document.addEventListener("scroll", enableAudioOnFirstInteraction);
+  // Fungsi toggle play/mute
+  audioBtn.addEventListener("click", async () => {
+    try {
+      if (audio.paused) {
+        await audio.play();
+      }
+      audio.muted = !audio.muted;
+      localStorage.setItem("audioMuted", audio.muted);
+      audioBtn.textContent = audio.muted ? "🔇" : "🔊";
+    } catch (err) {
+      console.warn("Tidak bisa memutar audio:", err);
+    }
+  });
 });
 
 // ============================
