@@ -22,53 +22,37 @@ document.addEventListener("DOMContentLoaded", () => {
   const audio = document.getElementById("bg-audio");
   const audioBtn = document.getElementById("audio-btn");
 
-  if (!audio) {
-    console.warn("Audio element not found (#bg-audio).");
-    return;
-  }
+  if (!audio || !audioBtn) return;
 
-  // Ambil dari localStorage; default = mute (true)
-  const stored = localStorage.getItem("audioMuted");
-  const initialMuted = stored === null ? true : stored === "true";
-
-  // Set state awal SEBELUM play()
-  audio.muted = initialMuted;
+  // ==== STATE AWAL ====
+  let stored = localStorage.getItem("audioMuted");
+  let isMuted = stored === null ? true : stored === "true"; // default: muted
+  audio.muted = isMuted;
   audio.volume = 0.2;
+  audioBtn.textContent = isMuted ? "🔇" : "🔊";
 
-  // Pastikan tombol konsisten (jika ada)
-  if (audioBtn) audioBtn.textContent = audio.muted ? "🔇" : "🔊";
-
-  // Coba play() saat load — karena audio.muted sudah true, autoplay biasanya diizinkan
-  window.addEventListener("load", () => {
-    const p = audio.play();
-    if (p && typeof p.then === "function") {
-      p.then(() => {
-        // sukses (tetap mute jika initialMuted true)
-        if (audioBtn) audioBtn.textContent = audio.muted ? "🔇" : "🔊";
-      }).catch((err) => {
-        // Play diblokir; tetap biarkan UI konsisten (mute icon sesuai flag)
-        console.log("Autoplay diblokir:", err);
-      });
-    }
+  // ==== COBA AUTOPLAY (dalam kondisi mute, boleh autoplay) ====
+  audio.play().catch(() => {
+    console.log("Autoplay diblokir. Tunggu interaksi user.");
   });
 
-  // Toggle ketika tombol diklik
-  if (audioBtn) {
-    audioBtn.addEventListener("click", () => {
-      // kalau audio belum diputar, coba play dulu (muted/unmuted sesuai state berikutnya)
+  // ==== EVENT: KLIK TOMBOL ====
+  audioBtn.addEventListener("click", async () => {
+    try {
+      // Pastikan audio sudah bisa diputar (beberapa browser butuh interaksi dulu)
       if (audio.paused) {
-        // jangan ubah audio.muted dulu — toggle setelah memastikan play dipanggil
-        audio.play().catch(() => {
-          // ignore, user interaction telah terjadi karena klik tombol
-        });
+        await audio.play();
       }
 
-      // toggle mute
-      audio.muted = !audio.muted;
-      localStorage.setItem("audioMuted", audio.muted ? "true" : "false");
-      audioBtn.textContent = audio.muted ? "🔇" : "🔊";
-    });
-  }
+      // Toggle mute/unmute
+      isMuted = !isMuted;
+      audio.muted = isMuted;
+      localStorage.setItem("audioMuted", isMuted ? "true" : "false");
+      audioBtn.textContent = isMuted ? "🔇" : "🔊";
+    } catch (err) {
+      console.warn("Gagal memutar audio setelah klik:", err);
+    }
+  });
 });
 
 
@@ -164,5 +148,6 @@ document.addEventListener("DOMContentLoaded", () => {
     if (subtitle) headerObserver.observe(subtitle);
   }
 });
+
 
 
