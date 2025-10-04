@@ -152,7 +152,6 @@ body {
   }
 }
 
-
 /* Tablet (≤1024px) */
 @media (max-width: 1024px) {
   .project-overlay {
@@ -170,6 +169,11 @@ body {
   .project-preview img {
     max-height: 400px;
   }
+
+  
+  .back-btn {
+    top: 70px;
+  }
 }
 
 /* Mobile Landscape (≤768px) */
@@ -179,19 +183,19 @@ body {
   }
 
   .project-header {
-    flex-direction: column;
+    flex-wrap: nowrap; /* tetap sejajar */
+    justify-content: space-between;
     align-items: center;
-    text-align: center;
+    gap: 8px;
   }
 
   .project-header h2 {
-    font-size: 1.6rem;
-    margin-bottom: 10px;
+    font-size: 1.3rem;
   }
 
   .visit-btn {
-    margin-top: 5px;
-    padding: 10px 18px;
+    font-size: 14px;
+    padding: 6px 12px;
   }
 
   .project-preview img {
@@ -204,7 +208,7 @@ body {
   }
 
   .back-btn {
-    top: 60px;
+    top: 70px;
     left: 15px;
     font-size: 14px;
     padding: 8px 12px;
@@ -225,6 +229,9 @@ body {
     font-size: 14px;
     padding: 8px 14px;
   }
+  .project-preview {
+    padding-top: 80px;
+  }
 
   .project-preview img {
     max-height: 250px;
@@ -240,10 +247,9 @@ body {
   }
 
   .back-btn {
-    top: 55px;
+    top: 65px;
     left: 10px;
     padding: 6px 10px;
     font-size: 13px;
   }
 }
-
