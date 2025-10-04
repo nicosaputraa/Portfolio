@@ -1,17 +1,27 @@
 // ============================
-// Sticky Navbar + Back Button
+// Sticky 
 // ============================
 window.addEventListener("scroll", () => {
   const navbar = document.querySelector("nav");
-  if (navbar) navbar.classList.toggle("sticky", window.scrollY > 0);
+  navbar.classList.toggle("sticky", window.scrollY > 0);
+});
 
+window.addEventListener("scroll", () => {
   const backBtn = document.querySelector(".back-btn");
-  if (backBtn) backBtn.classList.toggle("sticky", window.scrollY > 50);
+  if (!backBtn) return;
+
+  // Saat scroll > 50px, tambahkan class sticky
+  if (window.scrollY > 50) {
+    backBtn.classList.add("sticky");
+  } else {
+    backBtn.classList.remove("sticky");
+  }
 });
 
 // ============================
-// Kontrol Audio Background (tanpa autoplay)
+// Kontrol Audio Background
 // ============================
+<script>
 document.addEventListener("DOMContentLoaded", () => {
   const audio = document.getElementById("bg-audio");
   const audioBtn = document.getElementById("audio-btn");
@@ -21,18 +31,18 @@ document.addEventListener("DOMContentLoaded", () => {
 
   // Ambil status mute dari localStorage
   let storedMuted = localStorage.getItem("audioMuted");
-  if (storedMuted === null) storedMuted = "true"; // default pertama: MUTE
+  if (storedMuted === null) storedMuted = "true"; // default: MUTE
 
   audio.muted = storedMuted === "true";
   audioBtn.textContent = audio.muted ? "🔇" : "🔊";
 
-  // Fungsi untuk update tombol dan simpan status
+  // Update tombol & simpan status ke localStorage
   function updateStatus() {
     audioBtn.textContent = audio.muted ? "🔇" : "🔊";
     localStorage.setItem("audioMuted", audio.muted);
   }
 
-  // Fungsi aman untuk mencoba play audio
+  // Coba play audio dengan aman
   function tryPlay() {
     if (!audio.muted && audio.paused) {
       audio.play().catch((err) => {
@@ -41,7 +51,7 @@ document.addEventListener("DOMContentLoaded", () => {
     }
   }
 
-  // Klik tombol untuk toggle mute/unmute
+  // Klik tombol mute/unmute
   audioBtn.addEventListener("click", () => {
     if (audio.muted) {
       audio.muted = false;
@@ -53,7 +63,7 @@ document.addEventListener("DOMContentLoaded", () => {
     updateStatus();
   });
 
-  // 🔥 Jalankan audio setelah interaksi user pertama (klik/scroll)
+  // 🔥 Play otomatis setelah user interaksi (klik/scroll)
   const enablePlayOnInteraction = () => {
     if (!audio.muted) {
       tryPlay();
@@ -65,36 +75,61 @@ document.addEventListener("DOMContentLoaded", () => {
   document.addEventListener("click", enablePlayOnInteraction);
   document.addEventListener("scroll", enablePlayOnInteraction);
 
-  // Jika sebelumnya UNMUTE, coba mainkan begitu halaman dimuat
+  // Jika sebelumnya UNMUTE, coba play saat halaman dimuat
   window.addEventListener("load", () => {
     if (!audio.muted) {
       tryPlay();
     }
   });
 });
+</script>
 
 
+// ============================
+// Animasi Fade Up Universal
+// ============================
+document.addEventListener("DOMContentLoaded", () => {
+  const observer = new IntersectionObserver(
+    (entries, obs) => {
+      entries.forEach((entry) => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add("fade-in");
+          obs.unobserve(entry.target); // animasi sekali saja
+        }
+      });
+    },
+    { threshold: 0.2 }
+  );
+
+  document
+    .querySelectorAll(".fade-element")
+    .forEach((el) => observer.observe(el));
+});
 
 // ============================
 // Animasi Stagger untuk Skill Card
 // ============================
 document.addEventListener("DOMContentLoaded", () => {
   const skillCards = document.querySelectorAll(".skill-card");
+
+  const observer = new IntersectionObserver(
+    (entries, obs) => {
+      entries.forEach((entry) => {
+        if (entry.isIntersecting) {
+          skillCards.forEach((card, i) => {
+            setTimeout(() => {
+              card.classList.add("fade-in");
+            }, i * 150);
+          });
+          obs.unobserve(entry.target);
+        }
+      });
+    },
+    { threshold: 0.2 }
+  );
+
   const skillSection = document.querySelector(".skills-container");
-  if (!skillSection) return;
-
-  const observer = new IntersectionObserver((entries, obs) => {
-    entries.forEach((entry) => {
-      if (entry.isIntersecting) {
-        skillCards.forEach((card, i) => {
-          setTimeout(() => card.classList.add("fade-in"), i * 150);
-        });
-        obs.unobserve(entry.target);
-      }
-    });
-  }, { threshold: 0.2 });
-
-  observer.observe(skillSection);
+  if (skillSection) observer.observe(skillSection);
 });
 
 // ============================
@@ -104,58 +139,65 @@ document.addEventListener("DOMContentLoaded", () => {
   const hamburger = document.getElementById("hamburger");
   const navLinks = document.querySelector(".nav-links");
   const dropdowns = document.querySelectorAll(".nav-links li.dropdown");
-  if (!hamburger || !navLinks) return;
 
+  // Toggle menu saat hamburger diklik
   hamburger.addEventListener("click", () => {
     navLinks.classList.toggle("active");
   });
 
+  // Untuk mobile: dropdown toggle dengan klik
   dropdowns.forEach(dropdown => {
     const link = dropdown.querySelector(".dropbtn");
-    if (!link) return;
+
     link.addEventListener("click", (e) => {
       if (window.innerWidth <= 768) {
-        e.preventDefault();
+        e.preventDefault(); // cegah link langsung jalan
         dropdown.classList.toggle("open");
       }
     });
   });
 });
 
-// ============================
-// Animasi Project Card & Header
-// ============================
 document.addEventListener("DOMContentLoaded", () => {
   const cards = document.querySelectorAll(".project-card");
   const title = document.querySelector(".project-title");
   const subtitle = document.querySelector(".project-subtitle");
 
-  const cardObserver = new IntersectionObserver((entries, obs) => {
-    entries.forEach((entry, index) => {
-      if (entry.isIntersecting) {
-        setTimeout(() => entry.target.classList.add("show"), index * 250);
-        obs.unobserve(entry.target);
-      }
-    });
-  }, { threshold: 0.2 });
+  // Observer untuk cards (fade-up)
+  const cardObserver = new IntersectionObserver(
+    (entries, obs) => {
+      entries.forEach((entry, index) => {
+        if (entry.isIntersecting) {
+          setTimeout(() => {
+            entry.target.classList.add("show");
+          }, index * 250);
+          obs.unobserve(entry.target);
+        }
+      });
+    },
+    { threshold: 0.2 }
+  );
 
   cards.forEach((card) => {
     card.classList.add("fade-up");
     cardObserver.observe(card);
   });
 
-  const headerObserver = new IntersectionObserver((entries, obs) => {
-    entries.forEach((entry, index) => {
-      if (entry.isIntersecting) {
-        setTimeout(() => entry.target.classList.add("show"), index * 400);
-        obs.unobserve(entry.target);
-      }
-    });
-  }, { threshold: 0.5 });
+  // Observer untuk title & subtitle (fade-down)
+  const headerObserver = new IntersectionObserver(
+    (entries, obs) => {
+      entries.forEach((entry, index) => {
+        if (entry.isIntersecting) {
+          setTimeout(() => {
+            entry.target.classList.add("show");
+          }, index * 400); // delay lebih lama untuk efek dramatis
+          obs.unobserve(entry.target);
+        }
+      });
+    },
+    { threshold: 0.5 }
+  );
 
   if (title) headerObserver.observe(title);
   if (subtitle) headerObserver.observe(subtitle);
 });
-
-
-
