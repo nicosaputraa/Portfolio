@@ -1,77 +1,79 @@
 // ============================
-// Sticky 
+// Sticky Navbar + Back Button
 // ============================
 window.addEventListener("scroll", () => {
   const navbar = document.querySelector("nav");
-  navbar.classList.toggle("sticky", window.scrollY > 0);
-});
+  if (navbar) navbar.classList.toggle("sticky", window.scrollY > 0);
 
-window.addEventListener("scroll", () => {
   const backBtn = document.querySelector(".back-btn");
-  if (!backBtn) return;
-
-  // Saat scroll > 50px, tambahkan class sticky
-  if (window.scrollY > 50) {
-    backBtn.classList.add("sticky");
-  } else {
-    backBtn.classList.remove("sticky");
-  }
+  if (backBtn) backBtn.classList.toggle("sticky", window.scrollY > 50);
 });
 
 // ============================
 // Kontrol Audio Background
 // ============================
-const audio = document.getElementById("bg-audio");
-const audioBtn = document.getElementById("audio-btn");
+document.addEventListener("DOMContentLoaded", () => {
+  const audio = document.getElementById("bg-audio");
+  const audioBtn = document.getElementById("audio-btn");
+  if (!audio || !audioBtn) return;
 
-// Ambil status mute dari localStorage
-let storedMuted = localStorage.getItem("audioMuted");
-if (storedMuted === null) storedMuted = "true"; // default = muted
+  // Volume awal
+  audio.volume = 0.2;
 
-audio.muted = storedMuted === "true";
-audioBtn.textContent = audio.muted ? "🔇" : "🔊";
+  // Ambil status mute terakhir (localStorage)
+  let storedMuted = localStorage.getItem("audioMuted");
+  if (storedMuted === null) storedMuted = "true";
+  audio.muted = storedMuted === "true";
 
-// Set volume awal
-audio.volume = 0.2;
+  // Set tampilan tombol awal (kalau muted → 🔇)
+  audioBtn.textContent = audio.muted ? "🔇" : "🔊";
 
-// Autoplay audio saat load
-window.addEventListener("load", () => {
-  audio.play().catch(() => {
-    console.log("Autoplay diblokir browser, tunggu interaksi user.");
-  });
-});
+  // Fungsi toggle
+  const toggleAudio = () => {
+    // Coba play kalau belum mulai
+    if (audio.paused) {
+      audio.play().catch(() => {
+        console.warn("Autoplay diblokir, butuh interaksi user.");
+      });
+    }
+    audio.muted = !audio.muted;
+    localStorage.setItem("audioMuted", audio.muted);
+    audioBtn.textContent = audio.muted ? "🔇" : "🔊";
+  };
 
-// Toggle play/mute lewat tombol
-audioBtn.addEventListener("click", () => {
-  if (audio.paused) {
-    audio.play().catch(() => {
-      console.log("Audio masih diblokir, klik lagi.");
+  audioBtn.addEventListener("click", toggleAudio);
+
+  // Pastikan audio bisa jalan setelah interaksi pertama
+  let hasInteracted = false;
+  function enableAudioOnFirstInteraction() {
+    if (hasInteracted) return;
+    hasInteracted = true;
+
+    audio.play().then(() => {
+      console.log("Audio dimulai setelah interaksi.");
+    }).catch((err) => {
+      console.warn("Autoplay masih diblokir:", err);
     });
   }
-  audio.muted = !audio.muted;
-  localStorage.setItem("audioMuted", audio.muted);
-  audioBtn.textContent = audio.muted ? "🔇" : "🔊";
+
+  document.addEventListener("click", enableAudioOnFirstInteraction);
+  document.addEventListener("scroll", enableAudioOnFirstInteraction);
 });
 
 // ============================
 // Animasi Fade Up Universal
 // ============================
 document.addEventListener("DOMContentLoaded", () => {
-  const observer = new IntersectionObserver(
-    (entries, obs) => {
-      entries.forEach((entry) => {
-        if (entry.isIntersecting) {
-          entry.target.classList.add("fade-in");
-          obs.unobserve(entry.target); // animasi sekali saja
-        }
-      });
-    },
-    { threshold: 0.2 }
-  );
+  const observer = new IntersectionObserver((entries, obs) => {
+    entries.forEach((entry) => {
+      if (entry.isIntersecting) {
+        entry.target.classList.add("fade-in");
+        obs.unobserve(entry.target);
+      }
+    });
+  }, { threshold: 0.2 });
 
-  document
-    .querySelectorAll(".fade-element")
-    .forEach((el) => observer.observe(el));
+  document.querySelectorAll(".fade-element").forEach((el) => observer.observe(el));
 });
 
 // ============================
@@ -79,25 +81,21 @@ document.addEventListener("DOMContentLoaded", () => {
 // ============================
 document.addEventListener("DOMContentLoaded", () => {
   const skillCards = document.querySelectorAll(".skill-card");
-
-  const observer = new IntersectionObserver(
-    (entries, obs) => {
-      entries.forEach((entry) => {
-        if (entry.isIntersecting) {
-          skillCards.forEach((card, i) => {
-            setTimeout(() => {
-              card.classList.add("fade-in");
-            }, i * 150);
-          });
-          obs.unobserve(entry.target);
-        }
-      });
-    },
-    { threshold: 0.2 }
-  );
-
   const skillSection = document.querySelector(".skills-container");
-  if (skillSection) observer.observe(skillSection);
+  if (!skillSection) return;
+
+  const observer = new IntersectionObserver((entries, obs) => {
+    entries.forEach((entry) => {
+      if (entry.isIntersecting) {
+        skillCards.forEach((card, i) => {
+          setTimeout(() => card.classList.add("fade-in"), i * 150);
+        });
+        obs.unobserve(entry.target);
+      }
+    });
+  }, { threshold: 0.2 });
+
+  observer.observe(skillSection);
 });
 
 // ============================
@@ -107,64 +105,54 @@ document.addEventListener("DOMContentLoaded", () => {
   const hamburger = document.getElementById("hamburger");
   const navLinks = document.querySelector(".nav-links");
   const dropdowns = document.querySelectorAll(".nav-links li.dropdown");
+  if (!hamburger || !navLinks) return;
 
-  // Toggle menu saat hamburger diklik
   hamburger.addEventListener("click", () => {
     navLinks.classList.toggle("active");
   });
 
-  // Untuk mobile: dropdown toggle dengan klik
   dropdowns.forEach(dropdown => {
     const link = dropdown.querySelector(".dropbtn");
-
+    if (!link) return;
     link.addEventListener("click", (e) => {
       if (window.innerWidth <= 768) {
-        e.preventDefault(); // cegah link langsung jalan
+        e.preventDefault();
         dropdown.classList.toggle("open");
       }
     });
   });
 });
 
+// ============================
+// Animasi Project Card & Header
+// ============================
 document.addEventListener("DOMContentLoaded", () => {
   const cards = document.querySelectorAll(".project-card");
   const title = document.querySelector(".project-title");
   const subtitle = document.querySelector(".project-subtitle");
 
-  // Observer untuk cards (fade-up)
-  const cardObserver = new IntersectionObserver(
-    (entries, obs) => {
-      entries.forEach((entry, index) => {
-        if (entry.isIntersecting) {
-          setTimeout(() => {
-            entry.target.classList.add("show");
-          }, index * 250);
-          obs.unobserve(entry.target);
-        }
-      });
-    },
-    { threshold: 0.2 }
-  );
+  const cardObserver = new IntersectionObserver((entries, obs) => {
+    entries.forEach((entry, index) => {
+      if (entry.isIntersecting) {
+        setTimeout(() => entry.target.classList.add("show"), index * 250);
+        obs.unobserve(entry.target);
+      }
+    });
+  }, { threshold: 0.2 });
 
   cards.forEach((card) => {
     card.classList.add("fade-up");
     cardObserver.observe(card);
   });
 
-  // Observer untuk title & subtitle (fade-down)
-  const headerObserver = new IntersectionObserver(
-    (entries, obs) => {
-      entries.forEach((entry, index) => {
-        if (entry.isIntersecting) {
-          setTimeout(() => {
-            entry.target.classList.add("show");
-          }, index * 400); // delay lebih lama untuk efek dramatis
-          obs.unobserve(entry.target);
-        }
-      });
-    },
-    { threshold: 0.5 }
-  );
+  const headerObserver = new IntersectionObserver((entries, obs) => {
+    entries.forEach((entry, index) => {
+      if (entry.isIntersecting) {
+        setTimeout(() => entry.target.classList.add("show"), index * 400);
+        obs.unobserve(entry.target);
+      }
+    });
+  }, { threshold: 0.5 });
 
   if (title) headerObserver.observe(title);
   if (subtitle) headerObserver.observe(subtitle);
