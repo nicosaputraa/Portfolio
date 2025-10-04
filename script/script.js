@@ -16,53 +16,63 @@ document.addEventListener("DOMContentLoaded", () => {
   const audio = document.getElementById("bg-audio");
   const audioBtn = document.getElementById("audio-btn");
 
-  // Volume awal (nggak terlalu keras)
+  // Volume awal
   audio.volume = 0.2;
 
   // Ambil status mute dari localStorage
   let storedMuted = localStorage.getItem("audioMuted");
-  if (storedMuted === null) storedMuted = "true"; // default: mute pertama kali
+  if (storedMuted === null) storedMuted = "true"; // default pertama: MUTE
 
   audio.muted = storedMuted === "true";
   audioBtn.textContent = audio.muted ? "🔇" : "🔊";
 
-  // Fungsi untuk update tampilan & simpan status
+  // Fungsi untuk update tombol dan simpan status
   function updateStatus() {
-    localStorage.setItem("audioMuted", audio.muted);
     audioBtn.textContent = audio.muted ? "🔇" : "🔊";
+    localStorage.setItem("audioMuted", audio.muted);
   }
 
-  // Fungsi aman untuk play (supaya nggak error di browser)
-  function safePlay() {
-    if (audio.muted) return;
-    audio.play().catch((err) => {
-      console.warn("Autoplay diblokir oleh browser:", err);
-    });
+  // Fungsi aman untuk mencoba play audio
+  function tryPlay() {
+    if (!audio.muted && audio.paused) {
+      audio.play().catch((err) => {
+        console.warn("Autoplay diblokir browser:", err);
+      });
+    }
   }
 
-  // Kalau sebelumnya unmute → mainkan musik setelah interaksi pertama
-  if (!audio.muted) {
-    const enableOnInteraction = () => {
-      safePlay();
-      document.removeEventListener("click", enableOnInteraction);
-      document.removeEventListener("scroll", enableOnInteraction);
-    };
-    document.addEventListener("click", enableOnInteraction);
-    document.addEventListener("scroll", enableOnInteraction);
-  }
-
-  // Tombol toggle mute/unmute
+  // Klik tombol untuk toggle mute/unmute
   audioBtn.addEventListener("click", () => {
     if (audio.muted) {
       audio.muted = false;
-      safePlay();
+      tryPlay();
     } else {
       audio.muted = true;
       audio.pause();
     }
     updateStatus();
   });
+
+  // 🔥 Jalankan audio setelah interaksi user pertama (klik/scroll)
+  const enablePlayOnInteraction = () => {
+    if (!audio.muted) {
+      tryPlay();
+    }
+    document.removeEventListener("click", enablePlayOnInteraction);
+    document.removeEventListener("scroll", enablePlayOnInteraction);
+  };
+
+  document.addEventListener("click", enablePlayOnInteraction);
+  document.addEventListener("scroll", enablePlayOnInteraction);
+
+  // Jika sebelumnya UNMUTE, coba mainkan begitu halaman dimuat
+  window.addEventListener("load", () => {
+    if (!audio.muted) {
+      tryPlay();
+    }
+  });
 });
+
 
 
 // ============================
@@ -146,5 +156,6 @@ document.addEventListener("DOMContentLoaded", () => {
   if (title) headerObserver.observe(title);
   if (subtitle) headerObserver.observe(subtitle);
 });
+
 
 
