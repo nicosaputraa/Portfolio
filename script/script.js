@@ -15,34 +15,30 @@ window.addEventListener("scroll", () => {
 document.addEventListener("DOMContentLoaded", () => {
   const audio = document.getElementById("bg-audio");
   const audioBtn = document.getElementById("audio-btn");
-  if (!audio || !audioBtn) return;
 
-  // Volume awal dan status awal (mute)
+  // set volume
   audio.volume = 0.2;
-  audio.muted = true;
-  audioBtn.textContent = "🔇";
 
-  // Cek kalau pernah disimpan di localStorage
-  const storedMuted = localStorage.getItem("audioMuted");
-  if (storedMuted !== null) {
-    audio.muted = storedMuted === "true";
-    audioBtn.textContent = audio.muted ? "🔇" : "🔊";
+  // ambil status mute sebelumnya
+  let storedMuted = localStorage.getItem("audioMuted");
+  if (storedMuted === null) storedMuted = "true"; // default: muted
+  audio.muted = storedMuted === "true";
+  audioBtn.textContent = audio.muted ? "🔇" : "🔊";
+
+  // kalau sebelumnya unmute → play otomatis
+  if (!audio.muted) {
+    audio.play().catch(() => console.log("Autoplay diblokir, tunggu interaksi user."));
   }
 
-  // Fungsi toggle play/mute
-  audioBtn.addEventListener("click", async () => {
-    try {
-      if (audio.paused) {
-        await audio.play();
-      }
-      audio.muted = !audio.muted;
-      localStorage.setItem("audioMuted", audio.muted);
-      audioBtn.textContent = audio.muted ? "🔇" : "🔊";
-    } catch (err) {
-      console.warn("Tidak bisa memutar audio:", err);
-    }
+  // toggle saat klik
+  audioBtn.addEventListener("click", () => {
+    if (audio.paused) audio.play().catch(() => {});
+    audio.muted = !audio.muted;
+    localStorage.setItem("audioMuted", audio.muted);
+    audioBtn.textContent = audio.muted ? "🔇" : "🔊";
   });
 });
+
 
 // ============================
 // Animasi Fade Up Universal
@@ -141,3 +137,4 @@ document.addEventListener("DOMContentLoaded", () => {
   if (title) headerObserver.observe(title);
   if (subtitle) headerObserver.observe(subtitle);
 });
+
