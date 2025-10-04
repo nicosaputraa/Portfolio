@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Nico Saputra - Portfolio</title>
+    <!-- CSS -->
+    <link rel="stylesheet" href="style/style.css" />
+    <link rel="stylesheet" href="style/styleContact.css" />
+    <link rel="icon" type="image/png" href="assets/logo-tab.png" />
+  </head>
+  <body>
+    <!-- Navbar -->
+    <nav class="navbar">
+      <div class="logo">NICO SAPUTRA.</div>
+      <ul class="nav-links" id="navLinks">
+        <!-- Home with Dropdown -->
+        <li class="dropdown">
+          <a href="index.html">HOME ▾</a>
+          <ul class="dropdown-menu">
+            <li><a href="index.html#aboutMe">ABOUT ME</a></li>
+            <li><a href="index.html#experience">EXPERIENCE</a></li>
+            <li><a href="index.html#skills">SKILLS</a></li>
+            <li><a href="index.html#education">EDUCATION</a></li>
+          </ul>
+        </li>
+
+        <li><a href="project.html">PROJECT</a></li>
+        <li><a href="contact.html">CONTACT</a></li>
+      </ul>
+      <div class="hamburger" id="hamburger">&#9776;</div>
+    </nav>
+
+    <!-- ===== CONTACT SECTION ===== -->
+    <section id="contact" class="contact-section">
+      <!-- Header dengan video -->
+      <div class="contact-header">
+        <video autoplay muted loop playsinline class="contact-video">
+          <source src="Assets/bg-contact-vid.mp4" type="video/mp4" />
+          Your browser does not support the video tag.
+        </video>
+      </div>
+
+      <!-- Isi contact -->
+      <div class="contact-container">
+        <div class="contact-card fade-element">
+          <i class="fas fa-phone"></i>
+          <h4>Phone Number</h4>
+          <p><a href="tel:+6281284680422">+62 81284680422</a></p>
+        </div>
+
+        <div class="contact-card fade-element">
+          <i class="fas fa-envelope"></i>
+          <h4>Email</h4>
+          <p>
+            <a href="mailto:nic.saputra17@gmail.com">nic.saputra17@gmail.com</a>
+          </p>
+        </div>
+
+        <div class="contact-card fade-element">
+          <i class="fab fa-linkedin"></i>
+          <h4>LinkedIn</h4>
+          <p>
+            <a href="https://www.linkedin.com/in/nicosaputraa" target="_blank">
+              www.linkedin.com/in/nicosaputraa
+            </a>
+          </p>
+        </div>
+
+        <div class="contact-card fade-element">
+          <i class="fas fa-map-marker-alt"></i>
+          <h4>Location</h4>
+          <p>
+            <a
+              href="https://maps.google.com/?q=West+Jakarta,DKI+Jakarta"
+              target="_blank"
+            >
+              West Jakarta, DKI Jakarta
+            </a>
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <!-- Background Audio -->
+    <audio id="bg-audio" loop>
+      <source src="Assets/rough-audio.mp3" type="audio/mp3" />
+      Your browser does not support the audio element.
+    </audio>
+
+    <!-- Floating Audio Button -->
+    <button id="audio-btn" class="audio-toggle">🔇</button>
+
+    <!-- Footer -->
+    <footer class="footer">
+      <div class="footer-container">
+        <div class="footer-item">
+          <h4>Nico Saputra</h4>
+        </div>
+
+        <div class="footer-item">
+          <h4>Bina Nusantara University</h4>
+          <p>Student, 5th Semester</p>
+        </div>
+
+        <div class="footer-item contact">
+          <h4>Contact Information</h4>
+          <p><i class="fas fa-phone"></i> +62 81284680422</p>
+          <p><i class="fas fa-envelope"></i> nic.saputra17@gmail.com</p>
+          <p>
+            <i class="fab fa-linkedin"></i> www.linkedin.com/in/nicosaputraa
+          </p>
+        </div>
+
+        <div class="footer-item portfolio">
+          <h4>Portfolio 2025</h4>
+        </div>
+      </div>
+    </footer>
+
+    <!-- Script -->
+    <script src="script/script.js"></script>
+  </body>
+</html>

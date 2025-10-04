@@ -1,0 +1,329 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Nico Saputra - Portfolio</title>
+    <!-- CSS -->
+    <link rel="stylesheet" href="style/style.css" />
+    <link rel="stylesheet" href="style/styleHome.css" />
+    <!-- Favicon (Logo di Tab) -->
+    <link rel="icon" type="image/png" href="assets/logo-tab.png" />
+  </head>
+  <body>
+    <!-- Navbar -->
+    <nav class="navbar">
+      <div class="logo">NICO SAPUTRA.</div>
+      <ul class="nav-links" id="navLinks">
+        <!-- Home with Dropdown -->
+        <li class="dropdown">
+          <a href="index.html">HOME ▾</a>
+          <ul class="dropdown-menu">
+            <li><a href="index.html#aboutMe">ABOUT ME</a></li>
+            <li><a href="index.html#experience">EXPERIENCE</a></li>
+            <li><a href="index.html#skills">SKILLS</a></li>
+            <li><a href="index.html#education">EDUCATION</a></li>
+          </ul>
+        </li>
+
+        <li><a href="project.html">PROJECT</a></li>
+        <li><a href="contact.html">CONTACT</a></li>
+      </ul>
+      <div class="hamburger" id="hamburger">&#9776;</div>
+    </nav>
+
+    <!-- Hero Section with Video Background -->
+    <section id="home" class="hero">
+      <!-- Video Background -->
+      <video autoplay muted loop playsinline id="bg-video">
+        <source src="Assets/background-porto.mp4" type="video/mp4" />
+        Your browser does not support the video tag.
+      </video>
+
+      <!-- Overlay -->
+      <div class="overlay"></div>
+
+      <!-- Konten -->
+      <div class="content fade-element">
+        <h1>
+          <span class="first-name">NICO</span>
+          <span class="last-name">SAPUTRA</span>
+        </h1>
+        <p class="subtitle">
+          3rd Year Computer Science Student <br />
+          at Bina Nusantara University
+        </p>
+        <div class="buttons">
+          <a href="#aboutMe" class="btn">ABOUT ME</a>
+          <a
+            href="https://drive.google.com/file/d/1pMtDMytkVWO-snCsEJNhVHbTHOtnExJd/view?usp=sharing"
+            class="btn"
+            download
+            >CV &#8681;</a
+          >
+        </div>
+      </div>
+
+      <!-- Foto Profil -->
+      <div class="image fade-element">
+        <img src="Assets/nico-pas-foto.png" alt="Profile Picture" />
+      </div>
+
+      <!-- Background Audio -->
+      <audio id="bg-audio" loop>
+        <source src="Assets/rough-audio.mp3" type="audio/mp3" />
+        Your browser does not support the audio element.
+      </audio>
+
+      <!-- Floating Audio Button -->
+      <button id="audio-btn" class="audio-toggle">🔇</button>
+    </section>
+
+    <!-- ===== ABOUT ME ===== -->
+    <section id="aboutMe" class="about-me-v2 fade-element">
+      <img
+        src="Assets/bg-about-me.png"
+        alt="About Background"
+        class="about-bg section-bg"
+      />
+      <div class="about-content-v2">
+        <h2>ABOUT ME</h2>
+        <p>
+          I am an undergraduate Computer Science student at Bina Nusantara
+          University with a passion for software development, interactive
+          multimedia, and UI/UX design. Experienced in leadership and
+          organizational activities, I enjoy exploring innovative ideas,
+          learning new skills, and collaborating in teams to create impactful
+          digital solutions.
+        </p>
+      </div>
+    </section>
+
+    <!-- ===== EXPERIENCE ===== -->
+    <section id="experience" class="experience-section fade-element">
+      <img
+        src="Assets/bg-experience.png"
+        alt="Experience Background"
+        class="experience-bg section-bg"
+      />
+
+      <div class="experience-content">
+        <h2>EXPERIENCE</h2>
+        <div class="timeline">
+          <div class="timeline-item fade-element">
+            <div class="timeline-dot"></div>
+            <div class="timeline-text">
+              <h3>[2023 - Present] Activist - STAMANARA</h3>
+              <ul>
+                <li>
+                  Active member of student organization, engaging in various
+                  student development activities.
+                </li>
+              </ul>
+            </div>
+          </div>
+
+          <div class="timeline-item fade-element">
+            <div class="timeline-dot"></div>
+            <div class="timeline-text">
+              <h3>
+                [2018 - 2023] Youth Division - CETIYA DHARMA GRAHA CANDRA NAYA
+              </h3>
+              <ul>
+                <li>
+                  Assisted in organizing youth religious activities and social
+                  programs.
+                </li>
+                <li>
+                  Served as event coordinator and committee member for major
+                  ceremonies (Kathina, Vesak, Ulambana, etc.).
+                </li>
+              </ul>
+            </div>
+          </div>
+
+          <div class="timeline-item fade-element">
+            <div class="timeline-dot"></div>
+            <div class="timeline-text">
+              <h3>[2020 - 2021] Mading Division - OSIS SMAS CANDRA NAYA</h3>
+              <ul>
+                <li>Assisted in planning and coordinating school events.</li>
+                <li>
+                  Collaborated with team members to manage student activities.
+                </li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ===== SKILLS ===== -->
+    <section id="skills" class="skills fade-element">
+      <img
+        src="Assets/bg-about-me.png"
+        alt="Background Skills"
+        class="skills-bg section-bg"
+      />
+      <h2>SKILLS</h2>
+      <div class="skills-container">
+        <div class="skill-card fade-element">
+          <img src="Assets/Tools/icon-figma.png" alt="Figma Logo" />
+          <h3>Figma</h3>
+        </div>
+
+        <div class="skill-card fade-element">
+          <img src="Assets/Tools/icon-html.png" alt="HTML Logo" />
+          <h3>HTML</h3>
+        </div>
+
+        <div class="skill-card fade-element">
+          <img src="Assets/Tools/icon-css.png" alt="CSS Logo" />
+          <h3>CSS</h3>
+        </div>
+
+        <div class="skill-card fade-element">
+          <img src="Assets/Tools/icon-javascript.png" alt="JS Logo" />
+          <h3>JavaScript</h3>
+        </div>
+
+        <div class="skill-card fade-element">
+          <img src="Assets/Tools/icon-laravel.png" alt="Laravel Logo" />
+          <h3>Laravel</h3>
+        </div>
+
+        <div class="skill-card fade-element">
+          <img src="Assets/Tools/icon-php.png" alt="PHP Logo" />
+          <h3>PHP</h3>
+        </div>
+
+        <div class="skill-card fade-element">
+          <img src="Assets/Tools/icon-canva.png" alt="Canva Logo" />
+          <h3>Canva</h3>
+        </div>
+
+        <div class="skill-card fade-element">
+          <img src="Assets/Tools/icon-github.png" alt="Github Logo" />
+          <h3>Github</h3>
+        </div>
+
+        <div class="skill-card fade-element">
+          <img src="Assets/Tools/icon-java.png" alt="Java Logo" />
+          <h3>Java</h3>
+        </div>
+
+        <div class="skill-card fade-element">
+          <img src="Assets/Tools/icon-c++.png" alt="C Logo" />
+          <h3>C++</h3>
+        </div>
+
+        <div class="skill-card fade-element">
+          <img src="Assets/Tools/icon-docker.png" alt="Docker Logo" />
+          <h3>Docker</h3>
+        </div>
+
+        <div class="skill-card fade-element">
+          <img src="Assets/Tools/icon-axure.png" alt="Axure Logo" />
+          <h3>Axure</h3>
+        </div>
+
+        <div class="skill-card fade-element">
+          <img src="Assets/Tools/icon-androidstudio.png" alt="AS Logo" />
+          <h3>Android Studio</h3>
+        </div>
+
+        <div class="skill-card fade-element">
+          <img src="Assets/Tools/icon-javafx.png" alt="JFX Logo" />
+          <h3>JavaFX</h3>
+        </div>
+
+        <div class="skill-card fade-element">
+          <img src="Assets/Tools/icon-python.png" alt="PY Logo" />
+          <h3>Python</h3>
+        </div>
+
+        <div class="skill-card fade-element">
+          <img src="Assets/Tools/icon-mysql.png" alt="MySQL Logo" />
+          <h3>MySQL</h3>
+        </div>
+
+        <div class="skill-card fade-element">
+          <img src="Assets/Tools/icon-unity.png" alt="Unity Logo" />
+          <h3>Unity</h3>
+        </div>
+
+        <div class="skill-card fade-element">
+          <img src="Assets/Tools/icon-vuforia.png" alt="Vuforia Logo" />
+          <h3>Vuforia</h3>
+        </div>
+
+        <div class="skill-card fade-element">
+          <img
+            src="Assets/Tools/icon-magicavoxel.png"
+            alt="magicalvoxel Logo"
+          />
+          <h3>MagicalVoxel</h3>
+        </div>
+      </div>
+    </section>
+
+    <!-- ===== EDUCATION ===== -->
+    <section id="education" class="education-section fade-element">
+      <div class="education-content">
+        <h2>EDUCATION</h2>
+
+        <div class="education-cards">
+          <div class="edu-card fade-element">
+            <div class="edu-icon">
+              <img src="Assets/icon-highschool.png" alt="High School" />
+            </div>
+            <h3>Candra Naya <br />High School</h3>
+            <hr />
+            <p><strong>Student</strong></p>
+            <p>Science | 2020 — 2023</p>
+          </div>
+
+          <div class="edu-card fade-element">
+            <div class="edu-icon">
+              <img src="Assets/icon-university.png" alt="University" />
+            </div>
+            <h3>Bina Nusantara <br />University</h3>
+            <hr />
+            <p><strong>Undergraduate</strong></p>
+            <p>Computer Science | 2023 — 2027</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+      <div class="footer-container">
+        <div class="footer-item">
+          <h4>Nico Saputra</h4>
+        </div>
+
+        <div class="footer-item">
+          <h4>Bina Nusantara University</h4>
+          <p>Student, 5th Semester</p>
+        </div>
+
+        <div class="footer-item contact">
+          <h4>Contact Information</h4>
+          <p><i class="fas fa-phone"></i> +62 81284680422</p>
+          <p><i class="fas fa-envelope"></i> nic.saputra17@gmail.com</p>
+          <p>
+            <i class="fab fa-linkedin"></i> www.linkedin.com/in/nicosaputraa
+          </p>
+        </div>
+
+        <div class="footer-item portfolio">
+          <h4>Portfolio 2025</h4>
+        </div>
+      </div>
+    </footer>
+
+    <!-- Script -->
+    <script src="script/script.js"></script>
+  </body>
+</html>
