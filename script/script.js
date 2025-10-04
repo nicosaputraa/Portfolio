@@ -16,45 +16,54 @@ document.addEventListener("DOMContentLoaded", () => {
   const audio = document.getElementById("bg-audio");
   const audioBtn = document.getElementById("audio-btn");
 
-  // set volume
+  // Volume awal (nggak terlalu keras)
   audio.volume = 0.2;
 
-  // ambil status mute sebelumnya
+  // Ambil status mute dari localStorage
   let storedMuted = localStorage.getItem("audioMuted");
-  if (storedMuted === null) storedMuted = "true"; // default: muted
+  if (storedMuted === null) storedMuted = "true"; // default: mute pertama kali
+
   audio.muted = storedMuted === "true";
   audioBtn.textContent = audio.muted ? "🔇" : "🔊";
 
-  // kalau sebelumnya unmute → play otomatis
-  if (!audio.muted) {
-    audio.play().catch(() => console.log("Autoplay diblokir, tunggu interaksi user."));
-  }
-
-  // toggle saat klik
-  audioBtn.addEventListener("click", () => {
-    if (audio.paused) audio.play().catch(() => {});
-    audio.muted = !audio.muted;
+  // Fungsi untuk update tampilan & simpan status
+  function updateStatus() {
     localStorage.setItem("audioMuted", audio.muted);
     audioBtn.textContent = audio.muted ? "🔇" : "🔊";
+  }
+
+  // Fungsi aman untuk play (supaya nggak error di browser)
+  function safePlay() {
+    if (audio.muted) return;
+    audio.play().catch((err) => {
+      console.warn("Autoplay diblokir oleh browser:", err);
+    });
+  }
+
+  // Kalau sebelumnya unmute → mainkan musik setelah interaksi pertama
+  if (!audio.muted) {
+    const enableOnInteraction = () => {
+      safePlay();
+      document.removeEventListener("click", enableOnInteraction);
+      document.removeEventListener("scroll", enableOnInteraction);
+    };
+    document.addEventListener("click", enableOnInteraction);
+    document.addEventListener("scroll", enableOnInteraction);
+  }
+
+  // Tombol toggle mute/unmute
+  audioBtn.addEventListener("click", () => {
+    if (audio.muted) {
+      audio.muted = false;
+      safePlay();
+    } else {
+      audio.muted = true;
+      audio.pause();
+    }
+    updateStatus();
   });
 });
 
-
-// ============================
-// Animasi Fade Up Universal
-// ============================
-document.addEventListener("DOMContentLoaded", () => {
-  const observer = new IntersectionObserver((entries, obs) => {
-    entries.forEach((entry) => {
-      if (entry.isIntersecting) {
-        entry.target.classList.add("fade-in");
-        obs.unobserve(entry.target);
-      }
-    });
-  }, { threshold: 0.2 });
-
-  document.querySelectorAll(".fade-element").forEach((el) => observer.observe(el));
-});
 
 // ============================
 // Animasi Stagger untuk Skill Card
@@ -137,4 +146,5 @@ document.addEventListener("DOMContentLoaded", () => {
   if (title) headerObserver.observe(title);
   if (subtitle) headerObserver.observe(subtitle);
 });
+
 
