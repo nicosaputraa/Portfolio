@@ -17,56 +17,60 @@ document.addEventListener("DOMContentLoaded", () => {
 // Kontrol Audio Background (Fix default mute)
 // ============================
 
-// Ambil elemen audio dan tombol
-const audio = document.getElementById("bg-audio");
-const audioBtn = document.getElementById("audio-btn");
+// ===== Audio control: selalu tampil MUTE pertama (konsisten) =====
+document.addEventListener("DOMContentLoaded", () => {
+  const audio = document.getElementById("bg-audio");
+  const audioBtn = document.getElementById("audio-btn");
 
-// Pastikan tombol ada di halaman
-if (audio && audioBtn) {
-  // Default: audio mute saat pertama kali load
-  let storedMuted = localStorage.getItem("audioMuted");
-  if (storedMuted === null) storedMuted = "true"; // default mute
-  audio.muted = storedMuted === "true";
+  if (!audio) {
+    console.warn("Audio element not found (#bg-audio).");
+    return;
+  }
 
-  // Set tampilan awal tombol
-  audioBtn.textContent = audio.muted ? "🔇" : "🔊";
+  // Ambil dari localStorage; default = mute (true)
+  const stored = localStorage.getItem("audioMuted");
+  const initialMuted = stored === null ? true : stored === "true";
 
-  // Set volume dan coba autoplay
+  // Set state awal SEBELUM play()
+  audio.muted = initialMuted;
   audio.volume = 0.2;
 
-  // Browser sering blokir autoplay, jadi tetap panggil play() tapi mute
+  // Pastikan tombol konsisten (jika ada)
+  if (audioBtn) audioBtn.textContent = audio.muted ? "🔇" : "🔊";
+
+  // Coba play() saat load — karena audio.muted sudah true, autoplay biasanya diizinkan
   window.addEventListener("load", () => {
-    const playPromise = audio.play();
-    if (playPromise !== undefined) {
-      playPromise
-        .then(() => {
-          // Audio berhasil diputar (meskipun mute)
-          audio.muted = storedMuted === "true";
-        })
-        .catch(() => {
-          console.log("Autoplay diblokir, tunggu interaksi user.");
-        });
-    }
-  });
-
-  // Klik tombol = toggle mute
-  audioBtn.addEventListener("click", () => {
-    audio.muted = !audio.muted;
-    localStorage.setItem("audioMuted", audio.muted);
-    audioBtn.textContent = audio.muted ? "🔇" : "🔊";
-
-    if (!audio.paused && audio.muted) {
-      // Kalau dimute saat main, tetap biarkan play berjalan (tanpa suara)
-      return;
-    }
-
-    if (audio.paused) {
-      audio.play().catch(() => {
-        console.log("Audio masih diblokir, klik lagi.");
+    const p = audio.play();
+    if (p && typeof p.then === "function") {
+      p.then(() => {
+        // sukses (tetap mute jika initialMuted true)
+        if (audioBtn) audioBtn.textContent = audio.muted ? "🔇" : "🔊";
+      }).catch((err) => {
+        // Play diblokir; tetap biarkan UI konsisten (mute icon sesuai flag)
+        console.log("Autoplay diblokir:", err);
       });
     }
   });
-}
+
+  // Toggle ketika tombol diklik
+  if (audioBtn) {
+    audioBtn.addEventListener("click", () => {
+      // kalau audio belum diputar, coba play dulu (muted/unmuted sesuai state berikutnya)
+      if (audio.paused) {
+        // jangan ubah audio.muted dulu — toggle setelah memastikan play dipanggil
+        audio.play().catch(() => {
+          // ignore, user interaction telah terjadi karena klik tombol
+        });
+      }
+
+      // toggle mute
+      audio.muted = !audio.muted;
+      localStorage.setItem("audioMuted", audio.muted ? "true" : "false");
+      audioBtn.textContent = audio.muted ? "🔇" : "🔊";
+    });
+  }
+});
+
 
 
   // ----------------------------
@@ -160,4 +164,5 @@ if (audio && audioBtn) {
     if (subtitle) headerObserver.observe(subtitle);
   }
 });
+
 
