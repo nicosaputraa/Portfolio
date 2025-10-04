@@ -4,7 +4,7 @@
   text-align: center;
   border-top: 2px solid #ccc;
   position: relative;
-  overflow: hidden;
+  overflow: hidden
 }
 
 /* Header bagian video */
@@ -13,6 +13,7 @@
   height: 250px;
   object-fit: cover;
   display: block;
+  border-radius: 0;
 }
 
 /* Konten card */
@@ -25,7 +26,7 @@
 }
 
 .contact-card {
-  background: rgba(255, 255, 255, 0.8); /* glass effect */
+  background: rgba(255, 255, 255, 0.8);
   padding: 20px;
   width: 220px;
   border-radius: 16px;
@@ -33,8 +34,8 @@
   backdrop-filter: blur(12px);
   -webkit-backdrop-filter: blur(12px);
   transition: transform 0.3s ease, box-shadow 0.3s ease;
-  opacity: 0; /* default hidden */
-  transform: translateY(50px); /* untuk animasi fade-up */
+  opacity: 0;
+  transform: translateY(50px);
 }
 
 .contact-card i {
@@ -74,11 +75,14 @@
 
 /* Responsive */
 
-/* Tablet landscape (max 1024px) */
 @media (max-width: 1024px) {
   .contact-header video {
     height: auto;
     max-height: 220px;
+  }
+
+  .contact-section {
+    padding-top: 70px;
   }
 
   .contact-container {
@@ -88,14 +92,26 @@
 
   .contact-card {
     width: 200px;
+    padding: 20px;
+  }
+
+  .contact-card i {
+    font-size: 45px;
+  }
+
+  .contact-card h4 {
+    font-size: 17px;
   }
 }
 
-/* Tablet portrait & HP besar (max 768px) */
 @media (max-width: 768px) {
   .contact-header video {
     height: auto;
     max-height: 180px;
+  }
+
+  .contact-section {
+    padding-top: 65px;
   }
 
   .contact-container {
@@ -106,21 +122,9 @@
   }
 
   .contact-card {
-    width: 80%; /* biar lebih lebar di HP */
-    max-width: 300px;
-  }
-}
-
-/* HP kecil (max 480px) */
-@media (max-width: 480px) {
-  .contact-header video {
-    height: auto;
-    max-height: 150px;
-  }
-
-  .contact-card {
-    width: 90%;
-    padding: 16px;
+    width: 80%;
+    max-width: 280px;
+    padding: 18px;
   }
 
   .contact-card i {
@@ -133,5 +137,33 @@
 
   .contact-card p {
     font-size: 13px;
+  }
+}
+
+@media (max-width: 480px) {
+  .contact-header video {
+    height: auto;
+    max-height: 150px;
+  }
+
+  .contact-section {
+    padding-top: 55px;
+  }
+
+  .contact-card {
+    width: 90%;
+    padding: 16px;
+  }
+
+  .contact-card i {
+    font-size: 36px;
+  }
+
+  .contact-card h4 {
+    font-size: 15px;
+  }
+
+  .contact-card p {
+    font-size: 12px;
   }
 }
