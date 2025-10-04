@@ -280,6 +280,7 @@ html {
   .navbar .logo {
     padding-left: 20px;
   }
+
   .nav-links {
     display: none;
     flex-direction: column;
@@ -296,44 +297,38 @@ html {
   .nav-links.active {
     display: flex;
   }
+
   .hamburger {
     display: block;
   }
 
-  /* Dropdown di mobile */
-  /* .nav-links li.dropdown .dropdown-menu {
-    display: none !important;
-    position: relative;
-    background: transparent;
-    box-shadow: none;
-    backdrop-filter: none;
-    opacity: 1;
-    transform: none;
-    padding: 0;
-  }
-
-  .nav-links li.dropdown.open .dropdown-menu {
-    display: flex !important;
-    flex-direction: column;
-  } */
-
-  @media (max-width: 768px) {
-  /* Sembunyikan dropdown Home di mobile */
+  /* 🔹 Sembunyikan dropdown di mobile */
   .nav-links li.dropdown .dropdown-menu {
     display: none !important;
   }
 
-  /* Hilangkan pseudo element hover catcher biar tidak ganggu */
+  /* 🔹 Hilangkan pseudo element hover catcher */
   .nav-links li.dropdown::after {
     display: none;
   }
 
-  /* Kalau mau tombol Home tetap tampil sebagai link biasa */
+  /* 🔹 Jadikan tombol Home seperti link biasa */
   .nav-links li.dropdown .dropbtn {
-    background: transparent;
+    background: transparent !important;
     padding: 10px 0;
+    cursor: pointer;
+  }
+
+  .footer-container {
+    gap: 15px;
+    padding: 0 20px;
+  }
+
+  .footer-item p {
+    font-size: 12px;
   }
 }
+
 
 
   .footer-container {
@@ -344,3 +339,4 @@ html {
     font-size: 12px;
   }
 }
+
