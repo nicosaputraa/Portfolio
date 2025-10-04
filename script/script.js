@@ -119,15 +119,23 @@ document.addEventListener("DOMContentLoaded", () => {
 
   const dropdowns = navLinksEl ? navLinksEl.querySelectorAll("li.dropdown") : [];
   dropdowns.forEach((dropdown) => {
-    const link = dropdown.querySelector(".dropbtn") || dropdown.querySelector("a");
-    if (!link) return;
-    link.addEventListener("click", (e) => {
-      if (window.innerWidth <= 768) {
-        e.preventDefault();
-        dropdown.classList.toggle("open");
+  const link = dropdown.querySelector(".dropbtn") || dropdown.querySelector("a");
+  if (!link) return;
+
+  link.addEventListener("click", (e) => {
+    if (window.innerWidth <= 768) {
+      if (navLinksEl.classList.contains("active")) {
+        navLinksEl.classList.remove("active");
       }
-    });
+      return; 
+    }
+
+    // 💻 Di desktop: toggle dropdown (tanpa pindah halaman)
+    e.preventDefault();
+    dropdown.classList.toggle("open");
   });
+});
+
 
   // ---------- Project cards & header observer ----------
   const cards = document.querySelectorAll(".project-card");
@@ -167,3 +175,4 @@ document.addEventListener("DOMContentLoaded", () => {
     if (subtitle) headerObserver.observe(subtitle);
   }
 }); // end DOMContentLoaded
+
