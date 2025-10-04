@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Nico Saputra - Portfolio</title>
+    <!-- CSS -->
+    <link rel="stylesheet" href="/style/style.css" />
+    <link rel="stylesheet" href="/style/styleProjectDetail.css" />
+    <link rel="icon" type="image/png" href="/assets/logo-tab.png" />
+  </head>
+  <body>
+    <!-- Navbar -->
+    <nav class="navbar">
+      <div class="logo">NICO SAPUTRA.</div>
+      <ul class="nav-links" id="navLinks">
+        <!-- Home with Dropdown -->
+        <li class="dropdown">
+          <a href="/index.html">HOME ▾</a>
+          <ul class="dropdown-menu">
+            <li><a href="/index.html#aboutMe">ABOUT ME</a></li>
+            <li><a href="/index.html#experience">EXPERIENCE</a></li>
+            <li><a href="/index.html#skills">SKILLS</a></li>
+            <li><a href="/index.html#education">EDUCATION</a></li>
+          </ul>
+        </li>
+
+        <li><a href="/project.html">PROJECT</a></li>
+        <li><a href="/contact.html">CONTACT</a></li>
+      </ul>
+      <div class="hamburger" id="hamburger">&#9776;</div>
+    </nav>
+
+    <section class="project-detail">
+      <!-- Background Blur -->
+      <div class="project-bg">
+        <img src="/Assets/bg-about-me.png" alt="Project Preview" />
+      </div>
+
+      <!-- Overlay Content -->
+      <div class="project-overlay">
+        <!-- Back Button -->
+        <a href="/project.html" class="back-btn">←</a>
+
+        <!-- Main Preview -->
+        <div class="project-preview">
+          <img src="/Assets/project-detail-img/pj-det-dclassics.png" alt="dclasssics Project" />
+        </div>
+
+        <!-- HEADER (judul + tombol, tanpa background) -->
+        <div class="project-header">
+          <h2>[2025] D'Classics Books</h2>
+          <a href="https://r2yd4a.axshare.com" target="_blank" class="visit-btn"
+            >Visit Site</a
+          >
+        </div>
+
+        <!-- DESCRIPTION (background tipis full kiri-kanan-bawah) -->
+        <div class="project-description">
+          <p>
+            D’Classics Books is an elegant and intuitive mobile application
+            designed for lovers of classic literature. Users can browse a
+            curated collection of classic works, ranging from philosophy to
+            self-development, and add their favorite titles to a digital library
+            or order a physical copy. This project began with the creation of an
+            interactive prototype in Axure RP 9 to visualize the user flow,
+            providing a seamless reading and book-purchasing experience.
+          </p>
+
+          <h3>Role/Position</h3>
+          <ul>
+            <li>UI/UX Designer</li>
+            <li>Web Programming</li>
+            <li>Graphic Designer</li>
+          </ul>
+
+          <h3>Impact</h3>
+          <p>
+            This prototype helped the team understand user needs and validate
+            the interface design before moving forward. The resulting
+            application provides an easy way to explore classic books, enhances
+            the digital browsing experience, and creates opportunities to
+            connect classic literature with younger generations.
+          </p>
+
+          <h3>Learnings</h3>
+          <p>
+            How to create wireframes and interactive prototypes using Axure RP
+            9, gain hands-on experience in designing a seamless digital book
+            purchasing flow, and learn to maintain design consistency to ensure
+            an optimal user experience.
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <!-- Background Audio -->
+    <audio id="bg-audio" loop>
+      <source src="/Assets/pj-audio/navillera-audio.mp3" type="audio/mp3" />
+      Your browser does not support the audio element.
+    </audio>
+
+    <!-- Floating Audio Button -->
+    <button id="audio-btn" class="audio-toggle">🔇</button>
+
+    <!-- Footer -->
+    <footer class="footer">
+      <div class="footer-container">
+        <div class="footer-item">
+          <h4>Nico Saputra</h4>
+        </div>
+
+        <div class="footer-item">
+          <h4>Bina Nusantara University</h4>
+          <p>Student, 5th Semester</p>
+        </div>
+
+        <div class="footer-item contact">
+          <h4>Contact Information</h4>
+          <p><i class="fas fa-phone"></i> +62 81284680422</p>
+          <p><i class="fas fa-envelope"></i> nic.saputra17@gmail.com</p>
+          <p>
+            <i class="fab fa-linkedin"></i> www.linkedin.com/in/nicosaputraa
+          </p>
+        </div>
+
+        <div class="footer-item portfolio">
+          <h4>Portfolio 2025</h4>
+        </div>
+      </div>
+    </footer>
+
+    <!-- Script -->
+    <script src="/script/script.js"></script>
+  </body>
+</html>

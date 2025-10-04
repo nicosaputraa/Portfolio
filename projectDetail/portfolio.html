@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Nico Saputra - Portfolio</title>
+    <!-- CSS -->
+    <link rel="stylesheet" href="/style/style.css" />
+    <link rel="stylesheet" href="/style/styleProjectDetail.css" />
+    <link rel="icon" type="image/png" href="/Assets/logo-tab.png" />
+  </head>
+  <body>
+    <!-- Navbar -->
+    <nav class="navbar">
+      <div class="logo">NICO SAPUTRA.</div>
+      <ul class="nav-links" id="navLinks">
+        <!-- Home with Dropdown -->
+        <li class="dropdown">
+          <a href="/index.html">HOME ▾</a>
+          <ul class="dropdown-menu">
+            <li><a href="/index.html#aboutMe">ABOUT ME</a></li>
+            <li><a href="/index.html#experience">EXPERIENCE</a></li>
+            <li><a href="/index.html#skills">SKILLS</a></li>
+            <li><a href="/index.html#education">EDUCATION</a></li>
+          </ul>
+        </li>
+
+        <li><a href="/project.html">PROJECT</a></li>
+        <li><a href="/contact.html">CONTACT</a></li>
+      </ul>
+      <div class="hamburger" id="hamburger">&#9776;</div>
+    </nav>
+
+    <section class="project-detail">
+      <!-- Background Blur -->
+      <div class="project-bg">
+        <img src="/Assets/bg-about-me.png" alt="Project Preview" />
+      </div>
+
+      <!-- Overlay Content -->
+      <div class="project-overlay">
+        <!-- Back Button -->
+        <a href="/project.html" class="back-btn">←</a>
+
+        <!-- Main Preview -->
+        <div class="project-preview">
+          <img
+            src="/Assets/project-detail-img/pj-det-portofolio.png"
+            alt="portfolio Project"
+          />
+        </div>
+
+        <!-- HEADER (judul + tombol, tanpa background) -->
+        <div class="project-header">
+          <h2>[2025] Portfolio</h2>
+          <a href="https://nicosaputraa.github.io/Portfolio/" target="_blank" class="visit-btn"
+            >Visit Site</a
+          >
+        </div>
+
+        <!-- DESCRIPTION (background tipis full kiri-kanan-bawah) -->
+        <div class="project-description">
+          <p>
+            I developed a personal portfolio website to showcase my projects,
+            skills, and professional background. The website was built with a
+            focus on clean design, responsive layout, and user-friendly
+            navigation, ensuring that it can be accessed seamlessly across
+            different devices. The goal was to create a professional online
+            presence that highlights my work and allows potential employers or
+            collaborators to easily connect with me.
+          </p>
+
+          <h3>Role/Position</h3>
+          <ul>
+            <li>UI/UX Designer</li>
+            <li>Web Programming</li>
+            <li>Graphic Designer</li>
+          </ul>
+
+          <h3>Impact</h3>
+          <p>
+            The portfolio had a significant impact on my professional growth as
+            it strengthened my personal branding and provided a dedicated
+            platform to present my work. It increased my visibility to
+            recruiters, clients, and peers, while also boosting my confidence in
+            showcasing my skills. Additionally, the process of building the
+            website improved my technical abilities, especially in front-end
+            development and modern web practices, which further enhanced my
+            career readiness.personalized interactions, enhancing overall user
+            satisfaction.
+          </p>
+
+          <h3>Learnings</h3>
+          <p>
+            Through this project, I learned how to practical experience in
+            optimizing performance and usability, as well as developing a deeper
+            understanding of the importance of consistency and storytelling in
+            personal branding. Beyond technical growth, I learned
+            problem-solving strategies while debugging design and coding issues,
+            which taught me how to balance creativity with technical
+            requirements in professional web development.
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <!-- Background Audio -->
+    <audio id="bg-audio" loop>
+      <source src="/Assets/pj-audio/seasonofmemories-audio.mp3" type="audio/mp3" />
+      Your browser does not support the audio element.
+    </audio>
+
+    <!-- Floating Audio Button -->
+    <button id="audio-btn" class="audio-toggle">🔇</button>
+
+    <!-- Footer -->
+    <footer class="footer">
+      <div class="footer-container">
+        <div class="footer-item">
+          <h4>Nico Saputra</h4>
+        </div>
+
+        <div class="footer-item">
+          <h4>Bina Nusantara University</h4>
+          <p>Student, 5th Semester</p>
+        </div>
+
+        <div class="footer-item contact">
+          <h4>Contact Information</h4>
+          <p><i class="fas fa-phone"></i> +62 81284680422</p>
+          <p><i class="fas fa-envelope"></i> nic.saputra17@gmail.com</p>
+          <p>
+            <i class="fab fa-linkedin"></i> www.linkedin.com/in/nicosaputraa
+          </p>
+        </div>
+
+        <div class="footer-item portfolio">
+          <h4>Portfolio 2025</h4>
+        </div>
+      </div>
+    </footer>
+
+    <!-- Script -->
+    <script src="/script/script.js"></script>
+  </body>
+</html>
