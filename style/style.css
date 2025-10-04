@@ -1,0 +1,346 @@
+/* ====== FONT GOOGLE ====== */
+@import url("https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600&family=Roboto&display=swap");
+@import url("https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css");
+
+/* Default untuk body text */
+body {
+  font-family: "Roboto", sans-serif;
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+/* Untuk heading besar (branding) */
+h1,
+h2,
+h3,
+.logo {
+  font-family: "Playfair Display", serif;
+}
+
+/* Hilangkan scroll horizontal */
+html,
+body {
+  overflow-x: hidden;
+}
+
+html {
+  scroll-behavior: smooth; /* Smooth scrolling untuk anchor links */
+}
+
+/* ===== NAVBAR (Glass iOS Style dengan Font Import) ===== */
+.navbar {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 10px 0;
+  background: rgba(255, 255, 255, 0.2); /* putih transparan */
+  backdrop-filter: blur(15px); /* efek kaca buram */
+  -webkit-backdrop-filter: blur(15px); /* Safari/iOS */
+  box-shadow: 0 4px 20px rgba(255, 255, 255, 0.05);
+  z-index: 1000;
+  transition: background 0.3s ease, backdrop-filter 0.3s ease;
+}
+
+/* Logo */
+.navbar .logo {
+  color: #111;
+  font-size: 24px;
+  font-weight: 600;
+  font-family: "Playfair Display", serif;
+  letter-spacing: 1px;
+  padding-left: 80px;
+  white-space: nowrap;
+  overflow: hidden;
+  border-right: 2px solid rgba(17, 17, 17, 0.75); /* cursor */
+  width: 0;
+  animation: typing 7s steps(13, end) infinite, blink 0.7s infinite;
+}
+
+/* Animasi ketik */
+@keyframes typing {
+  0% {
+    width: 0ch;
+  }
+  40% {
+    width: 13ch;
+  }
+  70% {
+    width: 13ch;
+  }
+  100% {
+    width: 0ch;
+  }
+}
+
+/* Cursor berkedip */
+@keyframes blink {
+  0%,
+  100% {
+    border-color: transparent;
+  }
+  50% {
+    border-color: rgba(17, 17, 17, 0.75);
+  }
+}
+
+.nav-links {
+  list-style: none;
+  display: flex;
+  margin: 0;
+  gap: 30px;
+  padding-right: 70px;
+  font-family: "Times New Roman", Times, serif;
+}
+
+.nav-links li {
+  margin: 0;
+}
+
+.nav-links a {
+  color: #222;
+  text-decoration: none;
+  font-size: 20px;
+  font-weight: 500;
+  transition: color 0.3s ease;
+}
+
+.nav-links a:hover,
+.nav-links a.active {
+  color: #e7d5bd;
+}
+
+/* Dropdown Parent */
+.nav-links li.dropdown {
+  position: relative;
+}
+
+/* Tombol HOME */
+.nav-links li.dropdown .dropbtn {
+  cursor: pointer;
+  display: inline-block;
+  padding: 10px 15px;
+  border-radius: 12px;
+  backdrop-filter: blur(15px);
+  -webkit-backdrop-filter: blur(15px);
+  background: rgba(255, 255, 255, 0.2);
+  transition: all 0.3s ease;
+}
+
+.nav-links li.dropdown .dropbtn:hover {
+  background: rgba(255, 255, 255, 0.35);
+}
+
+/* Dropdown Menu */
+.nav-links li.dropdown .dropdown-menu {
+  position: absolute;
+  top: 159%;
+  left: 50%;
+  transform: translateX(-50%) translateY(-2px);
+  display: flex;
+  flex-direction: column;
+  background: rgba(255, 255, 255, 0.2);
+  backdrop-filter: blur(15px);
+  -webkit-backdrop-filter: blur(15px);
+  border-radius: 0 0 16px 16px;
+  min-width: 150px;
+  box-shadow: 0 8px 30px rgba(0, 0, 0, 0.05);
+  z-index: 2001;
+  list-style: none;
+  margin: 0;
+  padding: 5px 0;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.3s ease, transform 0.3s ease;
+}
+
+/* Show dropdown saat hover (desktop) */
+.nav-links li.dropdown:hover .dropdown-menu {
+  opacity: 1;
+  transform: translateX(-50%) translateY(0);
+  pointer-events: auto;
+}
+
+/* Dropdown Links */
+.nav-links li.dropdown .dropdown-menu li a {
+  display: block;
+  padding: 12px 25px;
+  font-size: 16px;
+  font-weight: 500;
+  color: #111;
+  text-decoration: none;
+  text-align: center;
+  border-radius: 12px;
+  transition: background 0.3s ease, color 0.3s ease;
+}
+
+.nav-links li.dropdown .dropdown-menu li a:hover {
+  background: rgba(255, 255, 255, 0.35);
+  color: #000;
+}
+
+.nav-links li.dropdown::after {
+  content: "";
+  position: absolute;
+  top: 100%;
+  left: 0;
+  width: 100%;
+  height: 80px;
+  background: transparent;
+}
+
+/* Tombol audio floating */
+.audio-toggle {
+  position: fixed;
+  bottom: 20px;
+  right: 20px;
+  background: rgba(0, 0, 0, 0.6);
+  color: white;
+  border: none;
+  border-radius: 50%;
+  width: 50px;
+  height: 50px;
+  font-size: 20px;
+  cursor: pointer;
+  z-index: 999;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.4);
+  transition: background 0.3s, transform 0.3s;
+}
+
+.audio-toggle:hover {
+  background: rgba(255, 255, 255, 0.2);
+  transform: scale(1.1);
+}
+
+/* Footer */
+.footer {
+  background: #f9f8f5;
+  padding: 20px 0;
+  border-top: 2px solid rgb(0, 0, 0);
+  font-family: Arial, sans-serif;
+}
+
+.footer-container {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  padding: 0 20px;
+  max-width: 1300px;
+  margin: 0 auto;
+  gap: 70px;
+  flex-wrap: nowrap;
+  overflow-x: auto;
+}
+
+.footer-item {
+  min-width: 180px;
+  flex: 1;
+}
+
+.footer-item h4 {
+  font-weight: bold;
+  margin-bottom: 5px;
+}
+.footer-item p {
+  margin: 4px 0;
+  font-size: 14px;
+}
+.footer i {
+  margin-right: 8px;
+  color: #333;
+}
+
+/* Contact geser ke kanan */
+.footer-item.contact {
+  margin-left: auto;
+  padding-left: 90px;
+}
+/* Portfolio tetap di kanan */
+.footer-item.portfolio {
+  text-align: right;
+}
+
+/* ===== HAMBURGER MENU RESPONSIVE ===== */
+.hamburger {
+  display: none;
+  font-size: 28px;
+  cursor: pointer;
+  color: #111;
+  padding-right: 30px;
+}
+
+@media (max-width: 768px) {
+  .navbar .logo {
+    padding-left: 20px;
+  }
+  .nav-links {
+    display: none;
+    flex-direction: column;
+    position: absolute;
+    top: 60px;
+    right: 0;
+    width: 220px;
+    background: rgba(255, 255, 255, 0.95);
+    padding: 15px;
+    border-radius: 8px 0 0 8px;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+  }
+
+  .nav-links.active {
+    display: flex;
+  }
+  .hamburger {
+    display: block;
+  }
+
+  /* Dropdown di mobile */
+  /* .nav-links li.dropdown .dropdown-menu {
+    display: none !important;
+    position: relative;
+    background: transparent;
+    box-shadow: none;
+    backdrop-filter: none;
+    opacity: 1;
+    transform: none;
+    padding: 0;
+  }
+
+  .nav-links li.dropdown.open .dropdown-menu {
+    display: flex !important;
+    flex-direction: column;
+  } */
+
+  @media (max-width: 768px) {
+  /* Sembunyikan dropdown Home di mobile */
+  .nav-links li.dropdown .dropdown-menu {
+    display: none !important;
+  }
+
+  /* Hilangkan pseudo element hover catcher biar tidak ganggu */
+  .nav-links li.dropdown::after {
+    display: none;
+  }
+
+  /* Kalau mau tombol Home tetap tampil sebagai link biasa */
+  .nav-links li.dropdown .dropbtn {
+    background: transparent;
+    padding: 10px 0;
+  }
+}
+
+
+  .footer-container {
+    gap: 15px;
+    padding: 0 20px;
+  }
+  .footer-item p {
+    font-size: 12px;
+  }
+}

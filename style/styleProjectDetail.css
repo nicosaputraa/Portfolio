@@ -1,0 +1,153 @@
+body {
+  font-family: 'Times New Roman', Times, serif;
+}
+
+/* ===== PROJECT DETAIL ===== */
+.project-detail {
+  position: relative;
+  width: 100%;
+  min-height: 100vh;
+  overflow: hidden;
+}
+
+.project-bg {
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  filter: blur(12px) brightness(0.7);
+}
+
+.project-bg img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.project-overlay {
+  position: relative;
+  padding: 40px 10%;
+  color: #fff;
+  opacity: 0;
+  animation: fadeUp 1s ease-out forwards;
+  animation-delay: 0.3s;
+}
+
+/* Back Button */
+.back-btn {
+  position: fixed;
+  top: 70px;
+  left: 20px;
+  z-index: 1000;
+  background: rgba(0, 0, 0, 0.6);
+  padding: 10px 15px;
+  border-radius: 1000px;
+  font-weight: bold;
+  text-decoration: none;
+  color: #fff;
+  transition: background 0.3s ease;
+  opacity: 0;
+  transform: translateY(-20px);
+  animation: fadeUp 1s ease-out forwards;
+  animation-delay: 0.2s;
+}
+
+.back-btn.sticky {
+  background: rgba(0, 0, 0, 0.9);
+  opacity: 1;
+  transform: scale(1.05);
+}
+
+
+.back-btn:hover {
+  background: rgba(0, 0, 0, 0.9);
+  transform: scale(1.05);
+}
+
+
+/* Project Preview */
+.project-preview {
+  text-align: center;
+  margin-bottom: 0;
+  animation-delay: 0.5s;
+  padding-top: 50px;
+}
+
+.project-preview img {
+  width: 100%;              /* lebar tetap */
+  max-height: 470px;       /* atur tinggi maksimum jadi lebih pendek */
+  object-fit: cover;       /* biar gambar tetap proporsional */
+  border-radius: 16px;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.5);
+}
+
+/* Header (judul + tombol sejajar) */
+.project-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start; /* tombol lebih naik */
+  margin-bottom: 0;
+  padding: 25px 0px;
+}
+
+.project-header h2 {
+  margin: 0;
+  font-size: 2rem;
+  color: #222;
+}
+
+.visit-btn {
+  background: #333;
+  color: #fff;
+  padding: 8px 16px;
+  border-radius: 8px;
+  text-decoration: none;
+  font-weight: bold;
+  transition: background 0.3s;
+  margin-top: -10px; /* biar lebih naik */
+}
+
+.visit-btn:hover {
+  background: #555;
+}
+
+/* Description Box */
+.project-description {
+  margin-top: 0;
+ 
+  line-height: 1.6;
+  color: #212121;
+  width: 100%;
+}
+
+.project-description h3 {
+  font-size: 20px;
+  color: #212121;
+  margin-top: 10px;
+  margin-bottom: 5px;
+}
+
+.project-description ul {
+  list-style: disc;
+  margin-left: 18px;
+  font-size: 18px;
+  margin: 0;
+}
+
+.project-description p {
+  margin-top: 0;
+  margin-bottom: 0px;
+  font-size: 18px;
+  color: #212121;
+}
+
+/* Fade-up animation */
+@keyframes fadeUp {
+  from {
+    opacity: 0;
+    transform: translateY(40px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}

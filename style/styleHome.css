@@ -1,0 +1,573 @@
+/* ============================= */
+/* 🌟 Global Fade Up Animation   */
+/* ============================= */
+@keyframes fadeUp {
+  from {
+    opacity: 0;
+    transform: translateY(40px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* Default state (sembunyi) */
+.fade-element {
+  opacity: 0;
+  transform: translateY(40px);
+}
+
+/* Saat aktif via JS */
+.fade-in {
+  animation: fadeUp 1s ease-out forwards;
+}
+
+/* ============================= */
+/* ===== HERO SECTION (HOME) ====*/
+/* ============================= */
+.hero {
+  position: relative;
+  width: 100%;
+  height: 100vh;
+  overflow: hidden;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0 0 0 100px;
+  color: #fff;
+  text-align: left;
+}
+
+/* Video Background */
+#bg-video {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  min-width: 100%;
+  min-height: 100%;
+  transform: translate(-50%, -50%);
+  object-fit: cover;
+  z-index: -2;
+}
+
+/* Overlay */
+.hero .overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.45);
+  z-index: -1;
+}
+
+/* Konten Teks */
+.hero .content {
+  z-index: 2;
+  max-width: 350px;
+}
+
+.hero h1 {
+  font-size: 4.5rem;
+  margin-bottom: 5px;
+}
+
+.hero .first-name {
+  color: #ffffff;
+}
+
+.hero .last-name {
+  color: #a08c8c;
+}
+
+.hero .subtitle {
+  font-size: 1.2rem;
+  margin-bottom: 25px;
+  font-family: "Times New Roman", Times, serif;
+}
+
+.hero .btn {
+  padding: 10px 20px;
+  margin-right: 15px;
+  background: rgba(
+    255,
+    255,
+    255,
+    0.35
+  ); /* lebih solid, tidak terlalu transparan */
+  color: #c7c7c7; /* teks tetap gelap */
+  text-decoration: none;
+  border-radius: 12px; /* rounded ala iOS */
+  backdrop-filter: blur(8px); /* efek kaca */
+  -webkit-backdrop-filter: blur(8px);
+  transition: all 0.3s ease;
+  font-weight: 500;
+  font-family: "Times New Roman", Times, serif;
+  border: none; /* hilangkan line putih */
+}
+
+.hero .btn:hover {
+  background: rgba(255, 255, 255, 0.55); /* makin jelas pas hover */
+  color: #000;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1); /* shadow lembut */
+}
+
+/* Foto Profil */
+.hero .image {
+  padding-top: 90px;
+  justify-content: center; /* foto center */
+  align-items: center; /* sejajar vertikal dengan teks */
+  height: 100%;
+}
+.hero .image img {
+  max-width: 700px;
+  width: 100%;
+  height: auto;
+  opacity: 0;
+  transform: translateY(100px);
+  animation: fadeUp 1.2s ease forwards;
+  animation-delay: 0.4s;
+}
+
+.hero .image img:hover {
+  transform: scale(1.05) translateY(-5px);
+  transition: transform 0.4s ease;
+}
+
+/* ============================= */
+/* ===== ABOUT ME SECTION ====== */
+/* ============================= */
+.about-me-v2 {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 100px 20px;
+  min-height: 80vh;
+  text-align: center;
+  color: #3d3d3d;
+  position: relative;
+  overflow: hidden;
+}
+
+.about-bg {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  z-index: 0;
+  opacity: 0.7;
+}
+
+.about-content-v2 {
+  max-width: 800px;
+  position: relative;
+  z-index: 1;
+}
+
+/* Heading dan paragraf */
+.about-content-v2 h2 {
+  font-family: "Playfair Display", serif;
+  font-size: 3rem;
+  font-weight: 600;
+  letter-spacing: 4px;
+  color: #252525;
+  margin-bottom: 30px;
+}
+
+.about-content-v2 p {
+  font-family: "Times New Roman", Times, serif;
+  font-size: 1.1rem;
+  line-height: 1.8;
+  color: #4a4a4a;
+}
+
+/* ============================= */
+/* ===== EXPERIENCE SECTION ==== */
+/* ============================= */
+.experience-section {
+  position: relative;
+  padding: 100px 20px;
+  min-height: 80vh;
+  text-align: center;
+  color: #333;
+  overflow: hidden;
+}
+
+.experience-bg {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  z-index: -1;
+}
+
+.experience-content {
+  position: relative;
+  z-index: 1;
+  max-width: 800px;
+  margin: 0 auto;
+}
+
+.experience-section h2 {
+  font-family: "Playfair Display", serif;
+  font-size: 3rem;
+  font-weight: 600;
+  letter-spacing: 4px;
+  margin-bottom: 50px;
+  color: #222;
+}
+
+.timeline {
+  position: relative;
+  margin: 0 auto;
+  max-width: 750px;
+  text-align: left;
+  padding-left: 60px;
+}
+
+.timeline-item {
+  position: relative;
+  margin-bottom: 30px;
+  padding-left: 20px;
+}
+
+.timeline-text {
+  background: rgba(255, 255, 255, 0.85);
+  padding: 15px 20px;
+  border-radius: 12px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+  transition: all 0.3s ease;
+  cursor: pointer;
+}
+
+.timeline-text:hover {
+  transform: translateY(-8px) scale(1.02);
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2);
+  background: rgba(255, 255, 255, 0.95);
+}
+
+.timeline-text h3 {
+  word-break: keep-all;
+}
+
+.timeline-text ul {
+  margin-top: 10px;
+  padding-left: 20px;
+  font-family: "Times New Roman", Times, serif;
+}
+
+/* ============================= */
+/* ===== SKILLS SECTION ======== */
+/* ============================= */
+.skills {
+  padding: 60px 20px;
+  text-align: center;
+  position: relative;
+  overflow: hidden;
+}
+
+.skills-bg {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  z-index: -2;
+  opacity: 0.9;
+}
+
+.skills::after {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(255, 255, 255, 0.6);
+  z-index: -1;
+}
+
+.skills h2 {
+  font-size: 2.5rem;
+  margin-bottom: 40px;
+  color: #000000;
+  position: relative;
+  z-index: 1;
+}
+
+.skills-container {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 25px;
+  position: relative;
+  z-index: 1;
+}
+
+.skill-card {
+  background: rgba(255, 255, 255, 0.1);
+  border-radius: 20px;
+  padding: 25px;
+  width: 160px;
+  backdrop-filter: blur(15px) saturate(180%);
+  -webkit-backdrop-filter: blur(15px) saturate(180%);
+  border: 1px solid rgba(255, 255, 255, 0.3);
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.2);
+  transition: transform 0.3s, box-shadow 0.3s;
+}
+
+.skill-card:hover {
+  transform: translateY(-8px) scale(1.05);
+  box-shadow: 0 12px 32px rgba(0, 0, 0, 0.25);
+}
+
+.skill-card img {
+  width: 70px;
+  height: 70px;
+  object-fit: contain;
+  margin-bottom: 12px;
+}
+
+.skill-card h3 {
+  font-size: 1.2rem;
+  color: #000000;
+  margin: 0;
+}
+
+/* ============================= */
+/* ===== EDUCATION SECTION ===== */
+/* ============================= */
+.education-section {
+  position: relative;
+  text-align: center;
+  padding: 100px 20px;
+  background: #ffffff;
+  overflow: hidden;
+}
+
+.education-bg {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  z-index: 0;
+  opacity: 0.2;
+}
+
+.education-content {
+  position: relative;
+  z-index: 1;
+}
+
+.education-section h2 {
+  font-family: "Playfair Display", serif;
+  font-size: 3rem;
+  margin-bottom: 60px;
+  color: #222;
+}
+
+.education-cards {
+  display: flex;
+  justify-content: center;
+  gap: 80px;
+  flex-wrap: wrap;
+  margin-top: 40px;
+}
+
+.education-cards p {
+  font-family: "Times New Roman", Times, serif;
+  font-size: 16px;
+}
+
+.edu-card {
+  background: #fff;
+  border-radius: 16px;
+  padding: 30px 40px;
+  width: 250px;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+  transition: all 0.3s ease;
+}
+
+.edu-card:hover {
+  transform: translateY(-10px);
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2);
+}
+
+.edu-icon {
+  width: 90px;
+  height: 90px;
+  margin: 0 auto 20px;
+  border-radius: 50%;
+  background: #fff1ea7d;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  overflow: hidden;
+}
+
+.edu-icon img {
+  width: 100%;
+  height: 75%;
+  object-fit: contain;
+}
+
+/* ============================= */
+/* ===== RESPONSIVE ADDITION ==== */
+/* ============================= */
+
+/* ===== HERO SECTION ===== */
+@media (max-width: 900px) {
+  .hero h1 {
+    font-size: 3rem; /* lebih kecil di tablet */
+  }
+
+  .hero .subtitle {
+    font-size: 0.9rem;
+  }
+
+  .hero .btn {
+    padding: 8px 16px;
+    margin-right: 10px;
+  }
+
+  .content {
+    padding-top: 300px;
+  }
+  .hero {
+    flex-direction: column;
+    justify-content: center;
+    text-align: center;
+    gap: 30px;
+    padding: 0 20px;
+    margin-top: -100px;
+  }
+
+  .hero .content {
+    text-align: center;
+  }
+
+  .hero .image img {
+    max-width: 700px;
+    margin-top: -150px;
+  }
+}
+
+/* ===== ABOUT ME ===== */
+@media (max-width: 768px) {
+  .about-me-v2 {
+    padding: 60px 15px;
+  }
+
+  .about-content-v2 {
+    max-width: 90%;
+  }
+
+  .about-content-v2 h2 {
+    font-size: 2rem;
+  }
+
+  .about-content-v2 p {
+    font-size: 0.95rem;
+  }
+}
+
+/* ===== EXPERIENCE ===== */
+@media (max-width: 768px) {
+  .experience-section {
+    padding: 60px 15px;
+  }
+
+  .timeline {
+    padding-left: 20px;
+  }
+
+  .timeline-item {
+    margin-bottom: 25px;
+  }
+}
+
+/* ===== SKILLS ===== */
+.skills-container {
+  position: relative;
+  z-index: 2; /* pastikan di atas overlay putih */
+}
+
+@media (max-width: 768px) {
+  .skills-container {
+    flex-direction: column;
+    align-items: center;
+    gap: 20px;
+  }
+
+  .skill-card {
+    width: 80%; /* biar muat di layar kecil */
+    max-width: 250px;
+  }
+}
+
+@media (max-width: 480px) {
+  .skill-card {
+    width: 90%; /* hampir full di HP */
+  }
+}
+
+
+/* ===== EDUCATION ===== */
+@media (max-width: 768px) {
+  .education-section {
+    padding: 60px 15px;
+  }
+
+  .education-cards {
+    flex-direction: column;
+    gap: 40px;
+  }
+
+  .edu-card {
+    width: 80%;
+    margin: 0 auto;
+  }
+
+  .edu-icon {
+    width: 70px;
+    height: 70px;
+  }
+}
+
+/* ===== SMALLER MOBILE ===== */
+@media (max-width: 480px) {
+  .hero h1 {
+    font-size: 2.2rem;
+  }
+
+  .hero .subtitle {
+    font-size: 0.8rem;
+  }
+
+  .hero .btn {
+    padding: 6px 12px;
+    font-size: 0.85rem;
+  }
+
+  .about-content-v2 h2,
+  .experience-section h2,
+  .skills h2,
+  .education-section h2 {
+    font-size: 1.8rem;
+  }
+
+  .about-content-v2 p,
+  .timeline-text,
+  .skill-card h3,
+  .edu-card h3 {
+    font-size: 0.9rem;
+  }
+}
