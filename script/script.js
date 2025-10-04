@@ -22,35 +22,41 @@ document.addEventListener("DOMContentLoaded", () => {
   const audio = document.getElementById("bg-audio");
   const audioBtn = document.getElementById("audio-btn");
 
-  if (!audio || !audioBtn) return;
+  if (!audio || !audioBtn) {
+    console.warn("Audio element or button not found!");
+    return;
+  }
 
-  // ==== STATE AWAL ====
-  let stored = localStorage.getItem("audioMuted");
-  let isMuted = stored === null ? true : stored === "true"; // default: muted
-  audio.muted = isMuted;
+  // --- Default State ---
   audio.volume = 0.2;
-  audioBtn.textContent = isMuted ? "🔇" : "🔊";
+  audio.muted = true;
+  let isPlaying = false;
 
-  // ==== COBA AUTOPLAY (dalam kondisi mute, boleh autoplay) ====
-  audio.play().catch(() => {
-    console.log("Autoplay diblokir. Tunggu interaksi user.");
-  });
+  // --- Set Icon awal ---
+  audioBtn.textContent = "🔇";
 
-  // ==== EVENT: KLIK TOMBOL ====
+  // --- Saat tombol diklik ---
   audioBtn.addEventListener("click", async () => {
-    try {
-      // Pastikan audio sudah bisa diputar (beberapa browser butuh interaksi dulu)
-      if (audio.paused) {
-        await audio.play();
-      }
+    console.log("Tombol audio diklik");
 
-      // Toggle mute/unmute
-      isMuted = !isMuted;
-      audio.muted = isMuted;
-      localStorage.setItem("audioMuted", isMuted ? "true" : "false");
-      audioBtn.textContent = isMuted ? "🔇" : "🔊";
-    } catch (err) {
-      console.warn("Gagal memutar audio setelah klik:", err);
+    try {
+      // Kalau belum mulai
+      if (!isPlaying) {
+        await audio.play();
+        isPlaying = true;
+        audio.muted = false;
+        audioBtn.textContent = "🔊";
+        console.log("Audio mulai dan unmute");
+      } 
+      // Kalau sudah jalan → toggle mute
+      else {
+        audio.muted = !audio.muted;
+        audioBtn.textContent = audio.muted ? "🔇" : "🔊";
+        console.log("Audio toggle:", audio.muted ? "mute" : "unmute");
+      }
+    } catch (error) {
+      console.error("Gagal memutar audio:", error);
+      alert("Klik lagi untuk mengaktifkan audio 🎵");
     }
   });
 });
@@ -148,6 +154,7 @@ document.addEventListener("DOMContentLoaded", () => {
     if (subtitle) headerObserver.observe(subtitle);
   }
 });
+
 
 
 
