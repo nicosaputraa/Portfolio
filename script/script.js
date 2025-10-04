@@ -1,160 +1,171 @@
-// script.js (versi perbaikan)
-// Semua inisialisasi dijalankan setelah DOM ready
-document.addEventListener("DOMContentLoaded", () => {
-  // ----------------------------
-  // Sticky navbar + back button
-  // ----------------------------
-  const navbar = document.querySelector("nav");
-  const backBtn = document.querySelector(".back-btn");
-
-  const onScroll = () => {
-    if (navbar) navbar.classList.toggle("sticky", window.scrollY > 0);
-    if (backBtn) backBtn.classList.toggle("sticky", window.scrollY > 50);
-  };
-  window.addEventListener("scroll", onScroll);
-
-  // ============================
-// Kontrol Audio Background (Fix default mute)
 // ============================
+// Sticky 
+// ============================
+window.addEventListener("scroll", () => {
+  const navbar = document.querySelector("nav");
+  navbar.classList.toggle("sticky", window.scrollY > 0);
+});
 
-// ===== Audio control: selalu tampil MUTE pertama (konsisten) =====
-document.addEventListener("DOMContentLoaded", () => {
-  const audio = document.getElementById("bg-audio");
-  const audioBtn = document.getElementById("audio-btn");
+window.addEventListener("scroll", () => {
+  const backBtn = document.querySelector(".back-btn");
+  if (!backBtn) return;
 
-  if (!audio || !audioBtn) {
-    console.warn("Audio element or button not found!");
-    return;
+  // Saat scroll > 50px, tambahkan class sticky
+  if (window.scrollY > 50) {
+    backBtn.classList.add("sticky");
+  } else {
+    backBtn.classList.remove("sticky");
   }
+});
 
-  // --- Default State ---
-  audio.volume = 0.2;
-  audio.muted = true;
-  let isPlaying = false;
+// ============================
+// Kontrol Audio Background
+// ============================
+const audio = document.getElementById("bg-audio");
+const audioBtn = document.getElementById("audio-btn");
 
-  // --- Set Icon awal ---
-  audioBtn.textContent = "🔇";
+// Ambil status mute dari localStorage
+let storedMuted = localStorage.getItem("audioMuted");
+if (storedMuted === null) storedMuted = "true"; // default = muted
 
-  // --- Saat tombol diklik ---
-  audioBtn.addEventListener("click", async () => {
-    console.log("Tombol audio diklik");
+audio.muted = storedMuted === "true";
+audioBtn.textContent = audio.muted ? "🔇" : "🔊";
 
-    try {
-      // Kalau belum mulai
-      if (!isPlaying) {
-        await audio.play();
-        isPlaying = true;
-        audio.muted = false;
-        audioBtn.textContent = "🔊";
-        console.log("Audio mulai dan unmute");
-      } 
-      // Kalau sudah jalan → toggle mute
-      else {
-        audio.muted = !audio.muted;
-        audioBtn.textContent = audio.muted ? "🔇" : "🔊";
-        console.log("Audio toggle:", audio.muted ? "mute" : "unmute");
-      }
-    } catch (error) {
-      console.error("Gagal memutar audio:", error);
-      alert("Klik lagi untuk mengaktifkan audio 🎵");
-    }
+// Set volume awal
+audio.volume = 0.2;
+
+// Autoplay audio saat load
+window.addEventListener("load", () => {
+  audio.play().catch(() => {
+    console.log("Autoplay diblokir browser, tunggu interaksi user.");
   });
 });
 
-
-
-  // ----------------------------
-  // Universal fade-in
-  // ----------------------------
-  const fadeObserver = new IntersectionObserver((entries, obs) => {
-    entries.forEach((entry) => {
-      if (entry.isIntersecting) {
-        entry.target.classList.add("fade-in");
-        obs.unobserve(entry.target);
-      }
+// Toggle play/mute lewat tombol
+audioBtn.addEventListener("click", () => {
+  if (audio.paused) {
+    audio.play().catch(() => {
+      console.log("Audio masih diblokir, klik lagi.");
     });
-  }, { threshold: 0.2 });
+  }
+  audio.muted = !audio.muted;
+  localStorage.setItem("audioMuted", audio.muted);
+  audioBtn.textContent = audio.muted ? "🔇" : "🔊";
+});
 
-  document.querySelectorAll(".fade-element").forEach((el) => fadeObserver.observe(el));
+// ============================
+// Animasi Fade Up Universal
+// ============================
+document.addEventListener("DOMContentLoaded", () => {
+  const observer = new IntersectionObserver(
+    (entries, obs) => {
+      entries.forEach((entry) => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add("fade-in");
+          obs.unobserve(entry.target); // animasi sekali saja
+        }
+      });
+    },
+    { threshold: 0.2 }
+  );
 
-  // ----------------------------
-  // Skill card stagger
-  // ----------------------------
-  const skillSection = document.querySelector(".skills-container");
-  if (skillSection) {
-    const skillCards = document.querySelectorAll(".skill-card");
-    const skillObserver = new IntersectionObserver((entries, obs) => {
+  document
+    .querySelectorAll(".fade-element")
+    .forEach((el) => observer.observe(el));
+});
+
+// ============================
+// Animasi Stagger untuk Skill Card
+// ============================
+document.addEventListener("DOMContentLoaded", () => {
+  const skillCards = document.querySelectorAll(".skill-card");
+
+  const observer = new IntersectionObserver(
+    (entries, obs) => {
       entries.forEach((entry) => {
         if (entry.isIntersecting) {
           skillCards.forEach((card, i) => {
-            setTimeout(() => card.classList.add("fade-in"), i * 150);
+            setTimeout(() => {
+              card.classList.add("fade-in");
+            }, i * 150);
           });
           obs.unobserve(entry.target);
         }
       });
-    }, { threshold: 0.2 });
-    skillObserver.observe(skillSection);
-  }
+    },
+    { threshold: 0.2 }
+  );
 
-  // ----------------------------
-  // Navbar mobile (hamburger + dropdown)
-  // ----------------------------
+  const skillSection = document.querySelector(".skills-container");
+  if (skillSection) observer.observe(skillSection);
+});
+
+// ============================
+// Navbar Mobile (Hamburger + Dropdown Toggle)
+// ============================
+document.addEventListener("DOMContentLoaded", () => {
   const hamburger = document.getElementById("hamburger");
-  // gunakan id dulu kalau ada, fallback ke class
-  const navLinks = document.getElementById("navLinks") || document.querySelector(".nav-links");
-  if (hamburger && navLinks) {
-    hamburger.addEventListener("click", () => navLinks.classList.toggle("active"));
-  }
+  const navLinks = document.querySelector(".nav-links");
+  const dropdowns = document.querySelectorAll(".nav-links li.dropdown");
 
-  // dropdown: cari anchor (fallback ke 'a' bila .dropbtn tidak ada)
-  const dropdowns = navLinks ? navLinks.querySelectorAll("li.dropdown") : [];
-  dropdowns.forEach((dropdown) => {
-    const link = dropdown.querySelector(".dropbtn") || dropdown.querySelector("a");
-    if (!link) return; // jaga-jaga
+  // Toggle menu saat hamburger diklik
+  hamburger.addEventListener("click", () => {
+    navLinks.classList.toggle("active");
+  });
+
+  // Untuk mobile: dropdown toggle dengan klik
+  dropdowns.forEach(dropdown => {
+    const link = dropdown.querySelector(".dropbtn");
+
     link.addEventListener("click", (e) => {
       if (window.innerWidth <= 768) {
-        e.preventDefault();
+        e.preventDefault(); // cegah link langsung jalan
         dropdown.classList.toggle("open");
       }
     });
   });
-
-  // ----------------------------
-  // Project cards & header observer
-  // ----------------------------
-  const cards = document.querySelectorAll(".project-card");
-  if (cards.length) {
-    const cardObserver = new IntersectionObserver((entries, obs) => {
-      entries.forEach((entry, index) => {
-        if (entry.isIntersecting) {
-          setTimeout(() => entry.target.classList.add("show"), index * 250);
-          obs.unobserve(entry.target);
-        }
-      });
-    }, { threshold: 0.2 });
-
-    cards.forEach((card) => {
-      card.classList.add("fade-up");
-      cardObserver.observe(card);
-    });
-  }
-
-  const title = document.querySelector(".project-title");
-  const subtitle = document.querySelector(".project-subtitle");
-  if (title || subtitle) {
-    const headerObserver = new IntersectionObserver((entries, obs) => {
-      entries.forEach((entry, index) => {
-        if (entry.isIntersecting) {
-          setTimeout(() => entry.target.classList.add("show"), index * 400);
-          obs.unobserve(entry.target);
-        }
-      });
-    }, { threshold: 0.5 });
-    if (title) headerObserver.observe(title);
-    if (subtitle) headerObserver.observe(subtitle);
-  }
 });
 
+document.addEventListener("DOMContentLoaded", () => {
+  const cards = document.querySelectorAll(".project-card");
+  const title = document.querySelector(".project-title");
+  const subtitle = document.querySelector(".project-subtitle");
 
+  // Observer untuk cards (fade-up)
+  const cardObserver = new IntersectionObserver(
+    (entries, obs) => {
+      entries.forEach((entry, index) => {
+        if (entry.isIntersecting) {
+          setTimeout(() => {
+            entry.target.classList.add("show");
+          }, index * 250);
+          obs.unobserve(entry.target);
+        }
+      });
+    },
+    { threshold: 0.2 }
+  );
 
+  cards.forEach((card) => {
+    card.classList.add("fade-up");
+    cardObserver.observe(card);
+  });
 
+  // Observer untuk title & subtitle (fade-down)
+  const headerObserver = new IntersectionObserver(
+    (entries, obs) => {
+      entries.forEach((entry, index) => {
+        if (entry.isIntersecting) {
+          setTimeout(() => {
+            entry.target.classList.add("show");
+          }, index * 400); // delay lebih lama untuk efek dramatis
+          obs.unobserve(entry.target);
+        }
+      });
+    },
+    { threshold: 0.5 }
+  );
+
+  if (title) headerObserver.observe(title);
+  if (subtitle) headerObserver.observe(subtitle);
+});
