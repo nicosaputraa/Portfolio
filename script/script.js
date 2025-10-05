@@ -1,5 +1,4 @@
-// script.js (full, tanpa <script> tags)
-// Semua inisialisasi dijalankan setelah DOM siap
+
 document.addEventListener("DOMContentLoaded", () => {
   // ---------- global elements ----------
   const navbar = document.querySelector("nav");
@@ -117,22 +116,22 @@ document.addEventListener("DOMContentLoaded", () => {
     hamburger.addEventListener("click", () => navLinksEl.classList.toggle("active"));
   }
 
-  const dropdowns = navLinksEl ? navLinksEl.querySelectorAll("li.dropdown") : [];
-  dropdowns.forEach((dropdown) => {
+ const dropdowns = navLinksEl ? navLinksEl.querySelectorAll("li.dropdown") : [];
+dropdowns.forEach((dropdown) => {
   const link = dropdown.querySelector(".dropbtn") || dropdown.querySelector("a");
   if (!link) return;
 
   link.addEventListener("click", (e) => {
+    // 📱 MOBILE: klik menutup menu hamburger setelah pilih item
     if (window.innerWidth <= 768) {
       if (navLinksEl.classList.contains("active")) {
         navLinksEl.classList.remove("active");
       }
-      return; 
+      return; // biarkan href berjalan normal
     }
 
-    // 💻 Di desktop: toggle dropdown (tanpa pindah halaman)
-    e.preventDefault();
-    dropdown.classList.toggle("open");
+    // 💻 DESKTOP: biarkan hover CSS yang mengatur dropdown
+    // jadi tidak perlu preventDefault()
   });
 });
 
@@ -175,4 +174,5 @@ document.addEventListener("DOMContentLoaded", () => {
     if (subtitle) headerObserver.observe(subtitle);
   }
 }); // end DOMContentLoaded
+
 
